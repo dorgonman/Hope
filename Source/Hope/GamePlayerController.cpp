@@ -6,10 +6,14 @@
 
 AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
+    , FixedViewTarget(nullptr)
 {
 
     //FixedViewTarget
    // PlayerControllerClass = AGamePlayerController::StaticClass();
+   
+
+
 }
 
 
@@ -43,13 +47,29 @@ void AGamePlayerController::PrintAllObjectsNamesAndClasses()
 
 void AGamePlayerController::BeginPlay(){
     Super::BeginPlay();
-    PrintAllObjectsNamesAndClasses();
-    UE_LOG(LogHope, Log, TEXT("test"));
+    //PrintAllObjectsNamesAndClasses();
 
+    for (TActorIterator<ACameraActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+    {
+        auto objectName = ActorItr->GetName();
+        if (FString("MainCameraActor") == objectName){
+            FixedViewTarget = *ActorItr;
+            break;
+        }
+    }
+    
     SetViewTarget(this->FixedViewTarget);
 }
 
 
 void AGamePlayerController::Tick(float DeltaSeconds){
   //  PrintAllObjectsNamesAndClasses();
+    FVector CameraLoc;
+    FRotator CameraRot;
+    GetActorEyesViewPoint(CameraLoc, CameraRot);
+
+    // calculate the camera position
+    CameraLoc += CameraLoc.ForwardVector * 10.0f;
+
+    FixedViewTarget->SetActorLocation(CameraLoc, false, NULL);
 }
