@@ -64,12 +64,12 @@ void AGamePlayerController::BeginPlay(){
 
 void AGamePlayerController::Tick(float DeltaSeconds){
   //  PrintAllObjectsNamesAndClasses();
-    FVector CameraLoc;
+    /*FVector CameraLoc;
     FRotator CameraRot;
     GetActorEyesViewPoint(CameraLoc, CameraRot);
 
     // calculate the camera position
     CameraLoc += CameraLoc.ForwardVector * 10.0f;
 
-    FixedViewTarget->SetActorLocation(CameraLoc, false, NULL);
+    FixedViewTarget->SetActorLocation(CameraLoc, false, NULL);*/
 }
