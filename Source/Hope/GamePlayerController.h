@@ -22,6 +22,6 @@ public:
     virtual void Tick(float DeltaSeconds) override;
     void PrintAllObjectsNamesAndClasses();
 private:
-    ACameraActor* FixedViewTarget;
+    ACameraActor* MainCameraActor;
 	
 };

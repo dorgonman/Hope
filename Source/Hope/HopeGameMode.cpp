@@ -3,11 +3,13 @@
 #include "Hope.h"
 #include "HopeGameMode.h"
 #include "GamePlayerController.h"
+#include "camera/MainCameraActor.h"
 AHopeGameMode::AHopeGameMode(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
 {
 
-    PlayerControllerClass = AGamePlayerController::StaticClass();
+    this->PlayerControllerClass = AGamePlayerController::StaticClass();
+   // this->DefaultPawnClass =  AMainCameraActor::StaticClass();
 }
 void AHopeGameMode::StartPlay(){
     Super::StartPlay();
