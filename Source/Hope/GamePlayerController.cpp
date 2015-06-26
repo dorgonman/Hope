@@ -35,7 +35,7 @@ void AGamePlayerController::PrintAllObjectsNamesAndClasses()
     {
         UE_LOG(LogHope, Log, TEXT("GetName:%s"), *ActorItr->GetName());
         UE_LOG(LogHope, Log, TEXT("GetDesc:%s"), *ActorItr->GetClass()->GetDesc());
-        UE_LOG(LogHope, Log, TEXT("GetActorLabel:%s"), *ActorItr->GetActorLabel());
+       // UE_LOG(LogHope, Log, TEXT("GetActorLabel:%s"), *ActorItr->GetActorLabel());
         UE_LOG(LogHope, Log, TEXT("GetFName:%s"), *ActorItr->GetClass()->GetFName().GetPlainNameString());
 
         ClientMessage(ActorItr->GetName());
@@ -74,7 +74,7 @@ void AGamePlayerController::BeginPlay(){
 
 void AGamePlayerController::Tick(float DeltaSeconds){
   //  PrintAllObjectsNamesAndClasses();
-    FVector CameraLoc;
+   /* FVector CameraLoc;
     FRotator CameraRot;
     GetActorEyesViewPoint(CameraLoc, CameraRot);
     
@@ -82,5 +82,5 @@ void AGamePlayerController::Tick(float DeltaSeconds){
     CameraLoc += CameraLoc.ForwardVector * 10.0f;
     if (MainCameraActor){
         MainCameraActor->SetActorLocation(CameraLoc, false, NULL);
-    }
+    }*/
 }
