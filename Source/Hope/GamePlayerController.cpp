@@ -12,6 +12,9 @@ AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectIni
     //FixedViewTarget
     //this->defaultpaw = AGamePlayerController::StaticClass();
    
+    this->bShowMouseCursor = true;
+    this->bEnableClickEvents = true;
+    this->bEnableMouseOverEvents = true;
 
 
 }
