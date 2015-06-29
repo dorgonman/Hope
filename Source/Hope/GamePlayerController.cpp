@@ -8,15 +8,11 @@ AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectIni
     : Super(ObjectInitializer)
     , MainCameraActor(nullptr)
 {
-
-    //FixedViewTarget
-    //this->defaultpaw = AGamePlayerController::StaticClass();
-   
     this->bShowMouseCursor = true;
     this->bEnableClickEvents = true;
     this->bEnableMouseOverEvents = true;
-
-
+    //UGameplayStatics::GetPlayerController
+    //GetWorld()->AddController(this);
 }
 
 
@@ -69,7 +65,7 @@ void AGamePlayerController::BeginPlay(){
     ensureMsg(nullptr != MainCameraActor , TEXT("MainCamera can't find"));
     //check((nullptr != MainCameraActor) && "Did you forget to call Init()?");
     SetViewTarget(this->MainCameraActor);
-
+  
    // this->MainCameraActor-> = ECameraProjectionMode::Orthographic;
     
 }
@@ -86,4 +82,17 @@ void AGamePlayerController::Tick(float DeltaSeconds){
     if (MainCameraActor){
         MainCameraActor->SetActorLocation(CameraLoc, false, NULL);
     }*/
+
+
+    if (IsInputKeyDown(EKeys::A)){
+        UE_LOG(LogHope, Log, TEXT("EKeys::A"));
+    }else if (IsInputKeyDown(EKeys::LeftMouseButton) || 
+             IsInputKeyDown(EKeys::TouchKeys[1])){
+        //UE_LOG(LogHope, Log, TEXT("EKeys::LeftMouseButton || EKeys::TouchKeys[1]"));
+       // ClientMessage("EKeys::LeftMouseButton");
+    }else if (IsInputKeyDown(EKeys::MouseY)){
+
+        UE_LOG(LogHope, Log, TEXT("EKeys::MouseY"));
+
+    }
 }

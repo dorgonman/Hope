@@ -9,10 +9,9 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine"
+				"Engine",
+				"Paper2D"
 			]
 		}
-	],
-	"Plugins": [
 	]
 }
