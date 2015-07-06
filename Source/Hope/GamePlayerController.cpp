@@ -8,6 +8,8 @@
 #include "Engine/LocalPlayer.h"
 #include "Engine/GameInstance.h"
 #include "MovieScene.h"
+
+#include "manager/SceneManager.h"
 AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
     , MainCameraActor(nullptr)
@@ -138,4 +140,6 @@ void AGamePlayerController::Tick(float DeltaSeconds){
         UE_LOG(LogHope, Log, TEXT("EKeys::MouseY"));
 
     }
+    //GEngine->GetWorld();
+    SceneManager::GetInstance()->Tick(DeltaSeconds);
 }
