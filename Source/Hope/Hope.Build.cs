@@ -10,6 +10,8 @@ public class Hope : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+
+        PublicDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore", "MovieSceneCore" });
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		

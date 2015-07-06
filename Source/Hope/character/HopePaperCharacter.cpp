@@ -15,6 +15,20 @@ AHopePaperCharacter::AHopePaperCharacter(const FObjectInitializer& ObjectInitial
     IdleAnimation = ConstructorStatics.IdleAnimationAsset.Get();
     GetSprite()->SetFlipbook(IdleAnimation);*/
    // this->BeginPlay();
+
+    // Setup the assets
+    struct FConstructorStatics
+    {
+        ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAnimationAsset;
+        FConstructorStatics()
+            : IdleAnimationAsset(TEXT("/Game/Character/Flipbooks/c1/c1_idle"))
+        {
+        }
+    };
+    static FConstructorStatics ConstructorStatics;
+    IdleAnimation = ConstructorStatics.IdleAnimationAsset.Get();
+    GetSprite()->SetFlipbook(IdleAnimation);
+
 }
 
 
