@@ -1,16 +1,19 @@
 #pragma once
 
 #include "GameFramework/PlayerController.h"
+#include "TitleScene.generated.h"
 
 
-class HOPE_API TitleScene
+class AGamePlayerController;
+UCLASS()
+class HOPE_API UTitleScene : public UObject
 {
 public:
-    TitleScene();
-    ~TitleScene();
+    GENERATED_BODY()
+    UTitleScene(const FObjectInitializer& ObjectInitializer);
     void Tick(float dt);
 public://scene Callback
-    virtual void OnEnter();
+    virtual void OnEnter(AGamePlayerController* pController);
     virtual void OnSceneVisible();
     virtual void OnExit();
     virtual void OnSceneDisable();

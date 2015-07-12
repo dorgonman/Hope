@@ -21,13 +21,8 @@ public:
     // Called every frame
     virtual void Tick(float DeltaSeconds) override;
     void PrintAllObjectsNamesAndClasses();
-
-    // Reference UMG Asset in the Editor
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
-    TSubclassOf<class UUserWidget> TitleSceneWidgetClass;
 private:
     ACameraActor* MainCameraActor;
 private:
-    // Variable to hold the widget After Creating it.
-    UUserWidget* TitleSceneWidget;
+
 };
