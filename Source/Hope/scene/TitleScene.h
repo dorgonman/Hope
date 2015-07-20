@@ -1,12 +1,15 @@
 #pragma once
 
-#include "GameFramework/PlayerController.h"
+
+
+#include "scene/GameScene.h"
+
 #include "TitleScene.generated.h"
 
+//GameScene: manage UMG, input, game logic and interaction
 
-class AGamePlayerController;
 UCLASS()
-class HOPE_API UTitleScene : public UObject
+class HOPE_API UTitleScene : public UGameScene
 {
 public:
     GENERATED_BODY()
@@ -17,9 +20,6 @@ public://scene Callback
     virtual void OnSceneVisible();
     virtual void OnExit();
     virtual void OnSceneDisable();
-private:
-    TSubclassOf<class UUserWidget> SceneWidgetClass;
-    // Variable to hold the widget After Creating it.
-    UUserWidget* SceneWidget;
+
 };
 

@@ -1,13 +1,12 @@
 #pragma once
 
-class UTitleScene;
+class UGameScene;
 class AGamePlayerController;
+
+
 class HOPE_API SceneManager
 {
-public:
-    enum class EScene{
-        TitleScene
-    };
+
 public:
     static SceneManager* GetInstance();
     static void Destroy();
@@ -15,12 +14,24 @@ public:
     void SetGameController(AGamePlayerController* pController); 
     void Tick(float dt);
 
-    void ChangeScene(EScene eScene);
+    template <typename T>
+    void ChangeScene();
 private:
     SceneManager();
     ~SceneManager();
 private:
     AGamePlayerController* GameController;
-    TArray<UTitleScene*> SceneEventArr;
+    TArray<UGameScene*> SceneEventArr;
+    UGameScene* CurrentScene;
 };
 
+
+template <typename T>
+void SceneManager::ChangeScene(){
+    
+        static_assert(std::is_convertible<T*, decltype(CurrentScene) >::value,
+            "T can't assign to CurrentScene");
+        UGameScene* pScene = NewObject<T>();
+        SceneEventArr.Add(pScene);
+
+};

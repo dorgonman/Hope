@@ -23,8 +23,12 @@ void SceneManager::SetGameController(AGamePlayerController* pController) {
 }
 void SceneManager::Tick(float dt){
     if (SceneEventArr.Num() > 0){
-        UTitleScene* pScene = SceneEventArr.Pop();
-        pScene->OnEnter(GameController);
+        if (nullptr != this->CurrentScene){
+            CurrentScene->ConditionalBeginDestroy(); //essential extra step, in all my testing
+            CurrentScene = nullptr;
+        }
+        this->CurrentScene = SceneEventArr.Pop();
+        CurrentScene->OnEnter(GameController);
         //pScene->BeginDestroy();
     }
    /* if (m_pSceneEvenList->count() > 0)
@@ -45,8 +49,3 @@ void SceneManager::Tick(float dt){
 
 }
 
-
-void SceneManager::ChangeScene(EScene eScene){
-    UTitleScene* pTitleScene = NewObject<UTitleScene>();
-    SceneEventArr.Add(pTitleScene);
-}

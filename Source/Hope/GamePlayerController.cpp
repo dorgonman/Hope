@@ -74,12 +74,9 @@ void AGamePlayerController::BeginPlay(){
     //check((nullptr != MainCameraActor) && "Did you forget to call Init()?");
     //SetViewTarget(this->MainCameraActor);
   
-    
-    //S
-   // SNEW();
     SceneManager::GetInstance()->SetGameController(this);
     //TitleScene* pTitleScene = NewObject<TitleScene>();
-    SceneManager::GetInstance()->ChangeScene(SceneManager::EScene::TitleScene);
+    SceneManager::GetInstance()->ChangeScene<UTitleScene>();
    // this->MainCameraActor-> = ECameraProjectionMode::Orthographic;
     
 }

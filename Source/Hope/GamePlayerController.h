@@ -22,6 +22,7 @@ public:
     virtual void Tick(float DeltaSeconds) override;
     void PrintAllObjectsNamesAndClasses();
 private:
+    UPROPERTY()
     ACameraActor* MainCameraActor;
 private:
 

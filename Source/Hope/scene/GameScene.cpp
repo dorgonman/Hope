@@ -1,5 +1,5 @@
 #include "Hope.h"
-#include "scene/TitleScene.h"
+#include "scene/GameScene.h"
 
 // include
 #include "Blueprint/UserWidget.h"
@@ -11,32 +11,29 @@
 #include "MovieScene.h"
 #include "GamePlayerController.h"
 
-/*TitleScene::TitleScene(){
-    static ConstructorHelpers::FClassFinder<UUserWidget> PutNameHere(TEXT("/Game/UMG/TitleScene/TitleSceneWBP"));
+
+UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer)
+{
+    //static ConstructorHelpers::FClassFinder<UUserWidget> PutNameHere(TEXT("/Game/UMG/TitleScene/TitleSceneWBP"));
+  //  if (PutNameHere.Class) {
+        //SceneWidgetClass = PutNameHere.Class;
+   // }
+}
+
+void UGameScene::SetSceneWidgetClass(const TCHAR* widgetPath){
+    ConstructorHelpers::FClassFinder<UUserWidget> PutNameHere(widgetPath);
     if (PutNameHere.Class) {
         SceneWidgetClass = PutNameHere.Class;
     }
 }
-TitleScene::~TitleScene(){
 
-}*/
-UTitleScene::UTitleScene(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer)
-{
-
-    
-    this->SetSceneWidgetClass(TEXT("/Game/UMG/TitleScene/TitleSceneWBP"));
-    
-}
-
-void UTitleScene::Tick(float dt){
-    Super::Tick(dt);
+void UGameScene::Tick(float dt){
 
 
 }
 
-void UTitleScene::OnEnter(AGamePlayerController* pController){
-    Super::OnEnter(pController);
+void UGameScene::OnEnter(AGamePlayerController* pController){
     //initRequest
     //initUI && execute animation
 
@@ -46,7 +43,14 @@ void UTitleScene::OnEnter(AGamePlayerController* pController){
 
     // }
 
-
+    if (SceneWidgetClass){
+        //auto playerController = UGameplayStatics::GetPlayerController(GEngine->GetWorld(), 0);
+        SceneWidget = CreateWidget<UUserWidget>(pController, SceneWidgetClass);
+        if (SceneWidget){
+            //let add it to the view port
+            SceneWidget->AddToViewport();
+        }
+    }
 
     //onLoadUILayer, assign value
 
@@ -92,14 +96,14 @@ void UTitleScene::OnEnter(AGamePlayerController* pController){
 
     //}
 }
-void UTitleScene::OnSceneVisible(){
+void UGameScene::OnSceneVisible(){
 
 }
-void UTitleScene::OnExit(){
+void UGameScene::OnExit(){
 
 
 }
-void UTitleScene::OnSceneDisable(){
+void UGameScene::OnSceneDisable(){
 
 
 }
