@@ -9,7 +9,7 @@ class AGamePlayerController;
 
 
 UCLASS()
-class HOPE_API UGameScene :public UObject
+class HOPE_API UGameScene : public UObject
 {
 public:
     GENERATED_BODY()

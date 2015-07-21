@@ -16,6 +16,10 @@ public:
 
     template <typename T>
     void ChangeScene();
+
+    AGamePlayerController* GetGameController(){ return GameController; }
+
+    UGameScene* GetCurrentScene(){ return CurrentScene; };
 private:
     SceneManager();
     ~SceneManager();
@@ -28,7 +32,6 @@ private:
 
 template <typename T>
 void SceneManager::ChangeScene(){
-    
         static_assert(std::is_convertible<T*, decltype(CurrentScene) >::value,
             "T can't assign to CurrentScene");
         UGameScene* pScene = NewObject<T>();
