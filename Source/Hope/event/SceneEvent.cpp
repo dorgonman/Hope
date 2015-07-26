@@ -88,6 +88,7 @@ void  ChangeSceneEvent::Execute(){
     }else if (GetSceneEventEnum() == ESceneEvent::TRANS_IN_NEXT){
         auto gameController = SceneManager::GetInstance()->GetGameController();
         GetTransInScene()->OnEnter(gameController);
+        GetTransInScene()->PlayTransInAnimation();
         this->SetSceneEventEnum(ESceneEvent::FINISHED);
        // gameController->EnableInput(gameController);
     }

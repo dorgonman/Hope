@@ -1,13 +1,22 @@
 #pragma once
 
 #include "string"
+#include "Blueprint/UserWidget.h"
 #include "GameScene.generated.h"
 
-
+UCLASS()
+class HOPE_API USceneWidget : public UUserWidget{
+public:
+    GENERATED_BODY()
+    USceneWidget(const FObjectInitializer& ObjectInitializer);
+    virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My New User Widget")
+    FString MyNewWidgetName;
+};
 
 class AGamePlayerController;
-class UUserWidget;
-
+class UWidgetAnimation;
 UCLASS()
 class HOPE_API UGameScene : public UObject
 {
@@ -25,13 +34,14 @@ public://scene Callback
 
     virtual void PlayTransOutAnimation(){};
     virtual void PlayTransInAnimation(){};
+    virtual UWidgetAnimation* GetWidgetAnimation(const FString& animeName);
 protected:
     void SetSceneWidgetClass(const TCHAR* widgetPath);
-    UUserWidget* GetSceneWidget();
+    USceneWidget* GetSceneWidget();
 private:
-    TSubclassOf<class UUserWidget> SceneWidgetClass;
+    TSubclassOf<class USceneWidget> SceneWidgetClass;
     // Variable to hold the widget After Creating it.
-    UPROPERTY()
-    UUserWidget* SceneWidget;
+    //UPROPERTY()
+    USceneWidget* SceneWidget;
 };
 

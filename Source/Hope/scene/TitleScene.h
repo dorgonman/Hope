@@ -21,5 +21,9 @@ public://scene Callback
     virtual void OnExit();
     virtual void OnSceneDisable();
     virtual void PlayTransOutAnimation() override;
+    virtual void PlayTransInAnimation() override;
+private:
+    UFUNCTION()
+    void StartGame();
 };
 
