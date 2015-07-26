@@ -17,6 +17,7 @@ class HOPE_API AGamePlayerController : public APlayerController
 	
 public:
     AGamePlayerController(const FObjectInitializer& ObjectInitializer);
+    virtual ~AGamePlayerController();
     virtual void BeginPlay() override;
     // Called every frame
     virtual void Tick(float DeltaSeconds) override;

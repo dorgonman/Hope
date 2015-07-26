@@ -1,8 +1,10 @@
 #pragma once
 
+
+#include "event/SceneEvent.h"
 class UGameScene;
 class AGamePlayerController;
-
+class SceneEvent;
 
 class HOPE_API SceneManager
 {
@@ -23,18 +25,34 @@ public:
 private:
     SceneManager();
     ~SceneManager();
+
+
+    template <typename T>
+    void AddSceneEvent(UGameScene* pGameScene);
 private:
     AGamePlayerController* GameController;
-    TArray<UGameScene*> SceneEventArr;
+    TArray<TSharedPtr<SceneEvent>> SceneEventArr;
+
+    TArray<UGameScene*> SceneStack;
+
     UGameScene* CurrentScene;
 };
 
 
 template <typename T>
 void SceneManager::ChangeScene(){
-        static_assert(std::is_convertible<T*, decltype(CurrentScene) >::value,
-            "T can't assign to CurrentScene");
-        UGameScene* pScene = NewObject<T>();
-        SceneEventArr.Add(pScene);
+    static_assert(std::is_convertible<T*, decltype(CurrentScene) >::value,
+        "T can't assign to CurrentScene");
+    UGameScene* pScene = NewObject<T>();
+    this->AddSceneEvent<ChangeSceneEvent>(pScene);
+};
+
+template <typename T>
+void SceneManager::AddSceneEvent(UGameScene* pGameScene){
+    static_assert(std::is_convertible<T*, SceneEvent* >::value,
+        "T can't push to SceneEventArr");
+    TSharedPtr<SceneEvent> sceneEventPtr = MakeShareable(new T);
+    sceneEventPtr->SetTransInScene(pGameScene);
+    SceneEventArr.Add(sceneEventPtr);
 
 };

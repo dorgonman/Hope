@@ -23,6 +23,11 @@ AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectIni
 
 }
 
+AGamePlayerController::~AGamePlayerController(){
+    SceneManager::Destroy();
+}
+
+
 
 void AGamePlayerController::PrintAllObjectsNamesAndClasses()
 {
@@ -73,7 +78,7 @@ void AGamePlayerController::BeginPlay(){
     ensureMsg(nullptr != MainCameraActor , TEXT("MainCamera can't find"));
     //check((nullptr != MainCameraActor) && "Did you forget to call Init()?");
     //SetViewTarget(this->MainCameraActor);
-  
+    SceneManager::Destroy();
     SceneManager::GetInstance()->SetGameController(this);
     //TitleScene* pTitleScene = NewObject<TitleScene>();
     SceneManager::GetInstance()->ChangeScene<UTitleScene>();

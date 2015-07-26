@@ -20,6 +20,6 @@ public://scene Callback
     virtual void OnSceneVisible();
     virtual void OnExit();
     virtual void OnSceneDisable();
-
+    virtual void PlayTransOutAnimation() override;
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Templates/SharedPointer.h"
+
 
 class HOPE_API GameEvent {
 public:
@@ -8,8 +8,8 @@ public:
     virtual ~GameEvent();
 };
 
-class GameScene;
-class HOPE_API SceneEvent {
+class UGameScene;
+class HOPE_API SceneEvent : public GameEvent{
 public:
 
     enum class ESceneEvent{
@@ -26,18 +26,22 @@ public:
     void                 SetSceneEventEnum(ESceneEvent eventEnum){ SceneEventEnum = eventEnum; };
     ESceneEvent          GetSceneEventEnum(){ return SceneEventEnum; };
     bool                 IsFinished(){ return (ESceneEvent::FINISHED == SceneEventEnum); };
-    TSharedPtr<GameScene>& GetInScene(){ return InScenePtr; }
-    void SetInScene(GameScene* pInScene);
+
+
+
+    UGameScene* GetTransInScene();
+    void SetTransInScene(UGameScene* pTransInScene);
 
 public:
 private:
 
     ESceneEvent SceneEventEnum;
-    TSharedPtr<GameScene> InScenePtr;
+    UGameScene* TransInScene;
 };
 
-/*class HOPE_API ChangeSceneEvent : public SceneEvent {
+class HOPE_API ChangeSceneEvent : public SceneEvent {
 public:
     ChangeSceneEvent();
     virtual ~ChangeSceneEvent();
-};*/
+    virtual void         Execute() override;
+};

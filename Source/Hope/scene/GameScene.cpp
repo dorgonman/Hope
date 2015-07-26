@@ -28,6 +28,8 @@ void UGameScene::SetSceneWidgetClass(const TCHAR* widgetPath){
     }
 }
 
+UUserWidget* UGameScene::GetSceneWidget(){ return SceneWidget; };
+
 void UGameScene::Tick(float dt){
 
 
@@ -96,14 +98,17 @@ void UGameScene::OnEnter(AGamePlayerController* pController){
 
     //}
 }
-void UGameScene::OnSceneVisible(){
 
-}
 void UGameScene::OnExit(){
 
+
+}
+
+
+/*void UGameScene::OnSceneVisible(){
 
 }
 void UGameScene::OnSceneDisable(){
 
 
-}
+}*/
