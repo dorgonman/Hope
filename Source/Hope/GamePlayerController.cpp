@@ -24,7 +24,7 @@ AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectIni
 }
 
 AGamePlayerController::~AGamePlayerController(){
-    SceneManager::Destroy();
+    
 }
 
 
