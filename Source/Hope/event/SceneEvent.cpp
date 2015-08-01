@@ -61,15 +61,20 @@ void SceneEvent::Execute(){
 
 
 void SceneEvent::OnTransOutFinished(){
-    if (GetSceneEventEnum() == ESceneEvent::WAIT_TRANS_OUT_CURRENT){
+    auto eSceneEventEnum = GetSceneEventEnum();
+    if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_OUT_CURRENT){
         this->SetSceneEventEnum(ESceneEvent::TRANS_IN_NEXT);
+        auto pCurrentScene = SceneManager::GetInstance()->GetCurrentScene();
+        if (pCurrentScene){
+            pCurrentScene->OnExit();
+        }
     }else{
-        ensureMsg(false, TEXT("oops! SceneEvent::OnTransOutFinished()"));
+        ensureMsgf(false, TEXT("oops! SceneEvent::OnTransOutFinished() %d"), eSceneEventEnum);
     }
 }
 void SceneEvent::OnTransInFinished(){
-
-    if (GetSceneEventEnum() == ESceneEvent::WAIT_TRANS_IN_NEXT){
+    auto eSceneEventEnum = GetSceneEventEnum();
+    if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_IN_NEXT){
         this->SetSceneEventEnum(ESceneEvent::FINISHED);
 
         auto transInScene = GetTransInScene();
@@ -77,7 +82,7 @@ void SceneEvent::OnTransInFinished(){
             transInScene->OnSceneVisible();
         }
     }else{
-        ensureMsg(false, TEXT("oops! SceneEvent::OnTransInFinished()"));
+        ensureMsgf(false, TEXT("oops! SceneEvent::OnTransInFinished() %d"), eSceneEventEnum);
     }
    
 }
@@ -96,7 +101,8 @@ ChangeSceneEvent::~ChangeSceneEvent(){
 
 void  ChangeSceneEvent::Execute(){
     SceneEvent::Execute();
-    if (GetSceneEventEnum() == ESceneEvent::TRANS_OUT_CURRENT){
+    auto eSceneEventEnum = GetSceneEventEnum();
+    if (eSceneEventEnum == ESceneEvent::TRANS_OUT_CURRENT){
         this->SetSceneEventEnum(ESceneEvent::WAIT_TRANS_OUT_CURRENT);
         auto pCurrentScene = SceneManager::GetInstance()->GetCurrentScene();
         if (pCurrentScene){
@@ -106,10 +112,11 @@ void  ChangeSceneEvent::Execute(){
             OnTransOutFinished();
         }
 
-    }else if (GetSceneEventEnum() == ESceneEvent::TRANS_IN_NEXT){
+    }else if (eSceneEventEnum == ESceneEvent::TRANS_IN_NEXT){
         this->SetSceneEventEnum(ESceneEvent::WAIT_TRANS_IN_NEXT);
         auto gameController = SceneManager::GetInstance()->GetGameController();
         auto transInScene = GetTransInScene();
+        SceneManager::GetInstance()->SetCurrentScene(transInScene);
         if (transInScene){
             transInScene->OnEnter(gameController);
             transInScene->PlayTransInAnimation(SharedThis(this));

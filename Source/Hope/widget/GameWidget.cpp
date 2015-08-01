@@ -11,7 +11,9 @@ UGameWidget::UGameWidget(const FObjectInitializer& ObjectInitializer)
 
 void UGameWidget::OnAnimationFinished_Implementation(const UWidgetAnimation* Animation){
     if (OnAnimationFinishedCallback){
-        OnAnimationFinishedCallback(Animation);
+        if (Animation){
+            OnAnimationFinishedCallback(Animation->MovieScene->GetFName().ToString());
+        }
     }
     UE_LOG(LogHope, Log, TEXT(" UGameWidget::OnAnimationFinished_Implementation"));
 }

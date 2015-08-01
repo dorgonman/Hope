@@ -13,7 +13,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My New User Widget")
     FString MyNewWidgetName;
 public:
-    std::function<void(const UWidgetAnimation* Animation)> OnAnimationFinishedCallback;
+    std::function<void(const FString&)> OnAnimationFinishedCallback;
 };
 
 

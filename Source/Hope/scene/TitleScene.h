@@ -23,7 +23,7 @@ public://scene Callback
     virtual void OnSceneDisable();
 
 protected:
-    void onAnimationFinished(const UWidgetAnimation* Animation) override;
+    virtual void OnAnimationFinished(const FString& animeName) override;
 private:
     UFUNCTION()
     void StartGame();

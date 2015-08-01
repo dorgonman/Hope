@@ -32,7 +32,7 @@ public://scene Callback
     virtual UWidgetAnimation* GetWidgetAnimation(const FString& animeName);
 
 protected:
-    virtual void onAnimationFinished(const UWidgetAnimation* Animation);
+    virtual void OnAnimationFinished(const FString& animeName);
 protected:
     void SetSceneWidgetClass(const TCHAR* widgetPath);
     USceneWidget* GetSceneWidget();

@@ -80,12 +80,13 @@ void UTitleScene::OnSceneDisable(){
 
 void UTitleScene::StartGame(){
     UE_LOG(LogHope, Log, TEXT("StartGame:"));
+    SceneManager::GetInstance()->ChangeScene<UTitleScene>();
 }
 
 
 
-void UTitleScene::onAnimationFinished(const UWidgetAnimation* Animation){
-    Super::onAnimationFinished(Animation);
+void UTitleScene::OnAnimationFinished(const FString& animeName){
+    Super::OnAnimationFinished(animeName);
 
 
   

@@ -22,6 +22,9 @@ public:
     AGamePlayerController* GetGameController(){ return GameController; }
 
     UGameScene* GetCurrentScene(){ return CurrentScene; };
+    void SetCurrentScene(UGameScene* pCurrentScene){
+        CurrentScene = pCurrentScene;
+    };
 private:
     SceneManager();
     ~SceneManager();
