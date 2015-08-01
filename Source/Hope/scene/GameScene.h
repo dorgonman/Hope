@@ -4,19 +4,12 @@
 #include "Blueprint/UserWidget.h"
 #include "GameScene.generated.h"
 
-UCLASS()
-class HOPE_API USceneWidget : public UUserWidget{
-public:
-    GENERATED_BODY()
-    USceneWidget(const FObjectInitializer& ObjectInitializer);
-    virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
-public:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My New User Widget")
-    FString MyNewWidgetName;
-};
 
 class AGamePlayerController;
 class UWidgetAnimation;
+class USceneWidget;
+class UWidgetAnimation;
+class SceneEvent;
 UCLASS()
 class HOPE_API UGameScene : public UObject
 {
@@ -32,16 +25,21 @@ public://scene Callback
     //virtual void OnSceneDisable();
 
 
-    virtual void PlayTransOutAnimation(){};
-    virtual void PlayTransInAnimation(){};
+    virtual void PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent);
+    virtual void PlayTransInAnimation(const TSharedPtr<SceneEvent>& pSceneEvent);
     virtual UWidgetAnimation* GetWidgetAnimation(const FString& animeName);
+
+protected:
+    virtual void onAnimationFinished(const UWidgetAnimation* Animation);
 protected:
     void SetSceneWidgetClass(const TCHAR* widgetPath);
     USceneWidget* GetSceneWidget();
 private:
-    TSubclassOf<class USceneWidget> SceneWidgetClass;
+    TSubclassOf<class UGameWidget> SceneWidgetClass;
     // Variable to hold the widget After Creating it.
     //UPROPERTY()
     USceneWidget* SceneWidget;
+
+    TWeakPtr<SceneEvent> SceneEventListenerWeakPtr;
 };
 

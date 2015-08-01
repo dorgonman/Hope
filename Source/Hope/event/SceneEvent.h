@@ -1,21 +1,28 @@
 #pragma once
 
-
-
-class HOPE_API GameEvent {
+#include "SharedPointer.h"
+class HOPE_API GameEvent : public TSharedFromThis< GameEvent >{
 public:
     GameEvent();
     virtual ~GameEvent();
 };
 
+
+
+
+
+
+
 class UGameScene;
-class HOPE_API SceneEvent : public GameEvent{
+class HOPE_API SceneEvent : public GameEvent {
 public:
 
     enum class ESceneEvent{
         INIT,
         TRANS_OUT_CURRENT,
+        WAIT_TRANS_OUT_CURRENT,
         TRANS_IN_NEXT,
+        WAIT_TRANS_IN_NEXT,
         FINISHED
     };
 public:
@@ -32,7 +39,9 @@ public:
     UGameScene* GetTransInScene();
     void SetTransInScene(UGameScene* pTransInScene);
 
-public:
+public: //ISceneEventListener
+    virtual void OnTransOutFinished();
+    virtual void OnTransInFinished();
 private:
 
     ESceneEvent SceneEventEnum;

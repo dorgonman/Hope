@@ -11,18 +11,8 @@
 #include "MovieScene.h"
 #include "GamePlayerController.h"
 
-
-USceneWidget::USceneWidget(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer){
-
-}
-
-void USceneWidget::OnAnimationFinished_Implementation(const UWidgetAnimation* Animation){
-
-}
-
-
-
+#include "widget/GameWidget.h"
+#include "event/SceneEvent.h"
 
 
 UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
@@ -56,6 +46,9 @@ void UGameScene::OnEnter(AGamePlayerController* pController){
         //auto playerController = UGameplayStatics::GetPlayerController(GEngine->GetWorld(), 0);
         SceneWidget = CreateWidget<USceneWidget>(pController, SceneWidgetClass);
         if (SceneWidget){
+
+            SceneWidget->OnAnimationFinishedCallback = std::bind(&UGameScene::onAnimationFinished, this, std::placeholders::_1);
+
             //let add it to the view port
             SceneWidget->AddToViewport();
         }
@@ -102,3 +95,50 @@ void UGameScene::OnSceneDisable(){
 
 
 }*/
+
+void UGameScene::onAnimationFinished(const UWidgetAnimation* Animation){
+    UE_LOG(LogHope, Log, TEXT("UGameScene::onAnimationFinished"));
+
+    if (nullptr == Animation){
+        return;
+    }
+
+
+    if (Animation->MovieScene->GetFName().ToString().Equals("begin_enter")){
+        UE_LOG(LogHope, Log, TEXT("UTitleScene::onAnimationFinished begin_enter"));
+
+        SceneEventListenerWeakPtr.Pin()->OnTransInFinished();
+    }else if (Animation->MovieScene->GetFName().ToString().Equals("begin_exit")){
+        UE_LOG(LogHope, Log, TEXT("UTitleScene::onAnimationFinished begin_exit"));
+        SceneEventListenerWeakPtr.Pin()->OnTransOutFinished();
+    }
+}
+
+
+void UGameScene::PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent){
+    auto animeName = FString("begin_exit");
+    auto animation = GetWidgetAnimation(animeName);
+    if (animation){
+        auto sceneWidget = GetSceneWidget();
+        sceneWidget->PlayAnimation(animation, 0.0F, 1);
+     
+    }else{
+        onAnimationFinished(nullptr);
+    }
+
+    SceneEventListenerWeakPtr = pSceneEvent;
+}
+
+
+void UGameScene::PlayTransInAnimation(const TSharedPtr<SceneEvent>& pSceneEvent){
+    auto animeName = FString("begin_enter");
+    auto animation = GetWidgetAnimation(animeName);
+    if (animation){
+        auto sceneWidget = GetSceneWidget();
+        sceneWidget->PlayAnimation(animation, 0.0F, 1);
+    }else{
+        onAnimationFinished(nullptr);  
+    }
+
+    SceneEventListenerWeakPtr = pSceneEvent;
+}

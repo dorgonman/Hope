@@ -20,8 +20,9 @@ public://scene Callback
     virtual void OnSceneVisible();
     virtual void OnExit();
     virtual void OnSceneDisable();
-    virtual void PlayTransOutAnimation() override;
-    virtual void PlayTransInAnimation() override;
+
+protected:
+    void onAnimationFinished(const UWidgetAnimation* Animation) override;
 private:
     UFUNCTION()
     void StartGame();
