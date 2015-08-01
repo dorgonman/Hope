@@ -14,6 +14,7 @@ class HOPE_API UTitleScene : public UGameScene
 public:
     GENERATED_BODY()
     UTitleScene(const FObjectInitializer& ObjectInitializer);
+    virtual ~UTitleScene();
     void Tick(float dt);
 public://scene Callback
     virtual void OnEnter(AGamePlayerController* pController);

@@ -24,6 +24,11 @@ UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
    // }
 }
 
+
+UGameScene::~UGameScene(){
+
+}
+
 void UGameScene::SetSceneWidgetClass(const TCHAR* widgetPath){
     ConstructorHelpers::FClassFinder<USceneWidget> PutNameHere(widgetPath);
     if (PutNameHere.Class) {
@@ -54,6 +59,22 @@ void UGameScene::OnEnter(AGamePlayerController* pController){
         }
     }
     //onLoadUILayer, assign value
+}
+
+
+void UGameScene::OnSceneVisible(){
+    UE_LOG(LogHope, Log, TEXT("UGameScene::OnSceneVisible"));
+}
+void UGameScene::OnSceneDisable(){
+    UE_LOG(LogHope, Log, TEXT("UGameScene::OnSceneDisable"));
+    GetSceneWidget()->WidgetTree->ForEachWidget([&](UWidget* Widget) {
+        UButton* pBtn = dynamic_cast<UButton*>(Widget);
+        if (pBtn){
+            pBtn->OnClicked.Clear();
+        }
+        UE_LOG(LogHope, Log, TEXT("OnSceneDisable:%s"), *Widget->GetFName().ToString());
+    });
+
 }
 
 void UGameScene::OnExit(){

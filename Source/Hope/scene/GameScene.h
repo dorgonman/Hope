@@ -16,13 +16,15 @@ class HOPE_API UGameScene : public UObject
 public:
     GENERATED_BODY()
     UGameScene(const FObjectInitializer& ObjectInitializer);
+    virtual ~UGameScene();
 public:
     virtual void Tick(float dt);
 public://scene Callback
     virtual void OnEnter(AGamePlayerController* pController);
-    //virtual void OnSceneVisible();
+    virtual void OnSceneVisible();
+    virtual void OnSceneDisable();
     virtual void OnExit();
-    //virtual void OnSceneDisable();
+
 
 
     virtual void PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent);

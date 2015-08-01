@@ -32,6 +32,11 @@ UTitleScene::UTitleScene(const FObjectInitializer& ObjectInitializer)
     
 }
 
+UTitleScene::~UTitleScene(){
+
+
+}
+
 void UTitleScene::Tick(float dt){
     Super::Tick(dt);
 
@@ -43,20 +48,30 @@ void UTitleScene::OnEnter(AGamePlayerController* pController){
     //initRequest
     //initUI && execute animation
 
-    UButton* btnStart = dynamic_cast<UButton*>(GetSceneWidget()->GetWidgetFromName(TEXT("BTN_START")));
-    if (btnStart){
-        btnStart->OnClicked.AddDynamic(this, &UTitleScene::StartGame);
-    }
 }
-void UTitleScene::OnSceneVisible(){
 
-}
 void UTitleScene::OnExit(){
 
 
 }
-void UTitleScene::OnSceneDisable(){
 
+void UTitleScene::OnSceneVisible(){
+    Super::OnSceneVisible();
+    UButton* btnStart = dynamic_cast<UButton*>(GetSceneWidget()->GetWidgetFromName(TEXT("BTN_START")));
+    if (btnStart){
+        btnStart->OnClicked.AddDynamic(this, &UTitleScene::StartGame);
+    }
+
+
+
+}
+void UTitleScene::OnSceneDisable(){
+    Super::OnSceneDisable();
+    UButton* btnStart = dynamic_cast<UButton*>(GetSceneWidget()->GetWidgetFromName(TEXT("BTN_START")));
+    if (btnStart){
+        btnStart->OnClicked.Clear();
+    }
+    //GetSceneWidget()->GetRootWidget();
 
 }
 
