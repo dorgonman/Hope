@@ -15,6 +15,11 @@
 #include "event/SceneEvent.h"
 
 
+static FString BEGIN_ENTER = "__begin_enter__";
+
+static FString BEGIN_EXIT = "__begin_exit__";
+
+
 UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
 {
@@ -123,10 +128,10 @@ void UGameScene::OnAnimationFinished(const FString& animeName){
     UE_LOG(LogHope, Log, TEXT("UGameScene::onAnimationFinished"));
 
 
-    if (animeName.Equals("begin_enter")){
+    if (animeName.Equals(BEGIN_ENTER)){
         UE_LOG(LogHope, Log, TEXT("UTitleScene::onAnimationFinished begin_enter"));
         SceneEventListenerWeakPtr.Pin()->OnTransInFinished();
-    }else if (animeName.Equals("begin_exit")){
+    }else if (animeName.Equals(BEGIN_EXIT)){
         UE_LOG(LogHope, Log, TEXT("UTitleScene::onAnimationFinished begin_exit"));
         SceneEventListenerWeakPtr.Pin()->OnTransOutFinished();
     }
@@ -136,14 +141,14 @@ void UGameScene::OnAnimationFinished(const FString& animeName){
 void UGameScene::PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent){
 
     SceneEventListenerWeakPtr = pSceneEvent;
-    auto animeName = FString("begin_exit");
+    auto animeName = FString(BEGIN_EXIT);
     auto animation = GetWidgetAnimation(animeName);
     if (animation){
         auto sceneWidget = GetSceneWidget();
         sceneWidget->PlayAnimation(animation, 0.0F, 1);
      
     }else{
-        OnAnimationFinished("begin_exit");
+        OnAnimationFinished(BEGIN_EXIT);
     }
 
    
@@ -153,13 +158,13 @@ void UGameScene::PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent
 void UGameScene::PlayTransInAnimation(const TSharedPtr<SceneEvent>& pSceneEvent){
 
     SceneEventListenerWeakPtr = pSceneEvent;
-    auto animeName = FString("begin_enter");
+    auto animeName = FString(BEGIN_ENTER);
     auto animation = GetWidgetAnimation(animeName);
     if (animation){
         auto sceneWidget = GetSceneWidget();
         sceneWidget->PlayAnimation(animation, 0.0F, 1);
     }else{
-        OnAnimationFinished("begin_enter");
+        OnAnimationFinished(BEGIN_ENTER);
     }
 
 }
