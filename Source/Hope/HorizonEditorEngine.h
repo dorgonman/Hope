@@ -1,5 +1,5 @@
-#pragma once
- 
+/*#pragma once
+#if WITH_EDITOR
 #include "UnrealEd.h"
 #include "HorizonEditorEngine.generated.h"
  
@@ -14,3 +14,4 @@
      // Close engine
      void PreExit() override;
  };
+#endif //#if WITH_EDITOR*/

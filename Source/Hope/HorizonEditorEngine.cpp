@@ -1,3 +1,4 @@
+/*#if WITH_EDITOR
 #include "Hope.h"
 #include "HorizonEditorEngine.h"
  
@@ -14,3 +15,5 @@ void UHorizonEditorEngine::PreExit()
 {
     Super::PreExit();
 }
+
+#endif //#if WITH_EDITOR*/

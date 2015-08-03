@@ -64,6 +64,7 @@ void SceneManager::Tick(float dt){
         if (pEvent->IsFinished()){
             CurrentScene = pEvent->GetTransInScene();
             SceneEventArr.Remove(pEvent);
+            
             UE_LOG(LogHope, Log, TEXT("SceneEventArr:%d"), SceneEventArr.Num());
         }else{
             pEvent->Execute();

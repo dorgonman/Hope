@@ -35,9 +35,8 @@ private:
 private:
     AGamePlayerController* GameController;
     TArray<TSharedPtr<SceneEvent>> SceneEventArr;
-
     TArray<UGameScene*> SceneStack;
-
+    UPROPERTY()
     UGameScene* CurrentScene;
 };
 

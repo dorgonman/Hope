@@ -1,7 +1,6 @@
 #include "Hope.h"
-#include "scene/TitleScene.h"
 #include "scene/HomeScene.h"
-
+#include "scene/TitleScene.h"
 // include
 #include "Blueprint/UserWidget.h"
 #include "UMG.h"
@@ -24,54 +23,51 @@
 TitleScene::~TitleScene(){
 
 }*/
-UTitleScene::UTitleScene(const FObjectInitializer& ObjectInitializer)
+UHomeScene::UHomeScene(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
 {
 
     
-    this->SetSceneWidgetClass(TEXT("/Game/UMG/TitleScene/TitleSceneWBP"));
+    this->SetSceneWidgetClass(TEXT("/Game/UMG/HomeScene/HomeSceneWBP"));
     
 }
 
-UTitleScene::~UTitleScene(){
+UHomeScene::~UHomeScene(){
 
 
 }
 
-void UTitleScene::Tick(float dt){
+void UHomeScene::Tick(float dt){
     Super::Tick(dt);
 
 
 }
 
-void UTitleScene::OnEnter(AGamePlayerController* pController){
+void UHomeScene::OnEnter(AGamePlayerController* pController){
     Super::OnEnter(pController);
     //initRequest
     //initUI && execute animation
 
 }
 
-void UTitleScene::OnExit(){
+void UHomeScene::OnExit(){
 
 
 }
 
-void UTitleScene::OnSceneVisible(){
+void UHomeScene::OnSceneVisible(){
     Super::OnSceneVisible();
     UButton* btnStart = dynamic_cast<UButton*>(GetSceneWidget()->GetWidgetFromName(TEXT("BTN_START")));
     if (btnStart){
-        btnStart->OnClicked.AddDynamic(this, &UTitleScene::StartGame);
+        btnStart->OnClicked.AddDynamic(this, &UHomeScene::StartGame);
     }
 
 
 
 }
-void UTitleScene::OnSceneDisable(){
+void UHomeScene::OnSceneDisable(){
     Super::OnSceneDisable();
-    UButton* btnStart = dynamic_cast<UButton*>(GetSceneWidget()->GetWidgetFromName(TEXT("BTN_START")));
-    if (btnStart){
-        btnStart->OnClicked.Clear();
-    }
+  
     //GetSceneWidget()->GetRootWidget();
 
 }
@@ -79,14 +75,14 @@ void UTitleScene::OnSceneDisable(){
 
 
 
-void UTitleScene::StartGame(){
+void UHomeScene::StartGame(){
     UE_LOG(LogHope, Log, TEXT("StartGame:"));
-    SceneManager::GetInstance()->ChangeScene<UHomeScene>();
+    SceneManager::GetInstance()->ChangeScene<UTitleScene>();
 }
 
 
 
-void UTitleScene::OnAnimationFinished(const FString& animeName){
+void UHomeScene::OnAnimationFinished(const FString& animeName){
     Super::OnAnimationFinished(animeName);
 
 

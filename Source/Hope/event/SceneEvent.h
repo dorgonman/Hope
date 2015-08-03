@@ -45,6 +45,7 @@ public: //ISceneEventListener
 private:
 
     ESceneEvent SceneEventEnum;
+    UPROPERTY()
     UGameScene* TransInScene;
 };
 
