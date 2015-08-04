@@ -57,7 +57,7 @@ void UGameScene::OnEnter(AGamePlayerController* pController){
         SceneWidget = CreateWidget<USceneWidget>(pController, SceneWidgetClass);
         if (SceneWidget){
 
-            SceneWidget->OnAnimationFinishedCallback = std::bind(&UGameScene::OnAnimationFinished, this, std::placeholders::_1);
+            SceneWidget->OnAnimationFinishedDelegate.BindUObject(this, &UGameScene::OnAnimationFinished);
 
             //let add it to the view port
             SceneWidget->AddToViewport();

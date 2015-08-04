@@ -10,12 +10,27 @@ UGameWidget::UGameWidget(const FObjectInitializer& ObjectInitializer)
 }
 
 void UGameWidget::OnAnimationFinished_Implementation(const UWidgetAnimation* Animation){
-    if (OnAnimationFinishedCallback){
-        if (Animation){
-            OnAnimationFinishedCallback(Animation->MovieScene->GetFName().ToString());
+    UE_LOG(LogHope, Log, TEXT(" UGameWidget::OnAnimationFinished_Implementation"));
+    if (Animation){
+        if (OnAnimationFinishedDelegate.IsBound()){
+            OnAnimationFinishedDelegate.ExecuteIfBound(Animation->MovieScene->GetFName().ToString());
+        }
+        else{
+            UE_LOG(LogHope, Log, TEXT(" UGameWidget::OnAnimationFinished_Implementation oops2!"));
+        
         }
     }
-    UE_LOG(LogHope, Log, TEXT(" UGameWidget::OnAnimationFinished_Implementation"));
+    else{
+        UE_LOG(LogHope, Log, TEXT(" UGameWidget::OnAnimationFinished_Implementation oops!"));
+    
+    }
+    
+   // if (OnAnimationFinishedCallback){
+        //if (Animation){
+            //OnAnimationFinishedCallback(Animation->MovieScene->GetFName().ToString());
+       // }
+   // }
+  
 }
 
 
