@@ -38,26 +38,6 @@ void SceneManager::Tick(float dt){
 
 
 
-   /* if (m_pSceneEvenList->count() > 0)
-    {
-        SceneEventObject* sceneEvent = dynamic_cast<SceneEventObject*>(m_pSceneEvenList->objectAtIndex(0));
-        CCAssert(sceneEvent, "");
-
-        if (sceneEvent->isFinished())
-        {
-            m_pSceneEvenList->removeObject(sceneEvent);
-        }
-        else
-        {
-            sceneEvent->execute();
-        }
-        return;
-    }
-
-    GameScene *pCurrScene = getCurrentScene();
-    if (pCurrScene)
-        pCurrScene->scheduleUpdate(delta);*/
-
 
     if (SceneEventArr.Num() > 0){
         auto pEvent = SceneEventArr[0];
@@ -70,6 +50,7 @@ void SceneManager::Tick(float dt){
             pEvent->Execute();
         
         } 
+        return;
     }
  
 

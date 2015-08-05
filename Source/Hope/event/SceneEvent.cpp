@@ -124,6 +124,11 @@ void  ChangeSceneEvent::Execute(){
         }else{
             OnTransInFinished();
         }
+    }else if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_IN_NEXT){
+        auto gameController = SceneManager::GetInstance()->GetGameController();
+        auto transInScene = GetTransInScene();
+
+        UE_LOG(LogHope, Log, TEXT("eSceneEventEnum == ESceneEvent::WAIT_TRANS_IN_NEXT"));
     }
 
 

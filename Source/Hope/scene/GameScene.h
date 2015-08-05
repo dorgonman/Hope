@@ -39,7 +39,7 @@ protected:
 private:
     TSubclassOf<class UGameWidget> SceneWidgetClass;
     // Variable to hold the widget After Creating it.
-    //UPROPERTY()
+    UPROPERTY()
     USceneWidget* SceneWidget;
 
     TWeakPtr<SceneEvent> SceneEventListenerWeakPtr;

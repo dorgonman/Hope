@@ -23,7 +23,9 @@ public:
 
     UGameScene* GetCurrentScene(){ return CurrentScene; };
     void SetCurrentScene(UGameScene* pCurrentScene){
+        ensureMsgf(pCurrentScene, TEXT("oops! SceneManager::SetCurrentScene()"));
         CurrentScene = pCurrentScene;
+        
     };
 private:
     SceneManager();
@@ -34,7 +36,11 @@ private:
     void AddSceneEvent(UGameScene* pGameScene);
 private:
     AGamePlayerController* GameController;
+
+
+    UPROPERTY()
     TArray<TSharedPtr<SceneEvent>> SceneEventArr;
+    UPROPERTY()
     TArray<UGameScene*> SceneStack;
     UPROPERTY()
     UGameScene* CurrentScene;

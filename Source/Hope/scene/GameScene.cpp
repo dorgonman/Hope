@@ -86,6 +86,7 @@ void UGameScene::OnExit(){
 
     if (SceneWidget){
         SceneWidget->RemoveFromViewport();
+        SceneWidget->OnAnimationFinishedDelegate.Unbind();
     }
 }
 
@@ -98,9 +99,9 @@ UWidgetAnimation* UGameScene::GetWidgetAnimation(const FString& animeName){
             if (Animation->MovieScene)
             {
 
-                UE_LOG(LogHope, Log, TEXT("test:%s"), *Animation->MovieScene->GetFName().ToString());
+                //UE_LOG(LogHope, Log, TEXT("test:%s"), *Animation->MovieScene->GetFName().ToString());
                 if (animeName.Equals(Animation->MovieScene->GetFName().ToString())){
-                    UE_LOG(LogHope, Log, TEXT("Find Animation:%s"), *Animation->MovieScene->GetFName().ToString());
+                    UE_LOG(LogHope, Log, TEXT("Finded Animation:%s"), *Animation->MovieScene->GetFName().ToString());
                     return Animation;
                 }
 
@@ -129,10 +130,10 @@ void UGameScene::OnAnimationFinished(const FString& animeName){
 
 
     if (animeName.Equals(BEGIN_ENTER)){
-        UE_LOG(LogHope, Log, TEXT("UTitleScene::onAnimationFinished begin_enter"));
+        UE_LOG(LogHope, Log, TEXT("UGameScene::onAnimationFinished begin_enter"));
         SceneEventListenerWeakPtr.Pin()->OnTransInFinished();
     }else if (animeName.Equals(BEGIN_EXIT)){
-        UE_LOG(LogHope, Log, TEXT("UTitleScene::onAnimationFinished begin_exit"));
+        UE_LOG(LogHope, Log, TEXT("UGameScene::onAnimationFinished begin_exit"));
         SceneEventListenerWeakPtr.Pin()->OnTransOutFinished();
     }
 }

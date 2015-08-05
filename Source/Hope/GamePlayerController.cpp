@@ -90,14 +90,12 @@ void AGamePlayerController::BeginPlay(){
 void AGamePlayerController::Tick(float DeltaSeconds){
 
     if (IsInputKeyDown(EKeys::A)){
-        UE_LOG(LogHope, Log, TEXT("EKeys::A"));
+       
     }else if (IsInputKeyDown(EKeys::LeftMouseButton) || 
              IsInputKeyDown(EKeys::TouchKeys[1])){
         //UE_LOG(LogHope, Log, TEXT("EKeys::LeftMouseButton || EKeys::TouchKeys[1]"));
        // ClientMessage("EKeys::LeftMouseButton");
     }else if (IsInputKeyDown(EKeys::MouseY)){
-
-        UE_LOG(LogHope, Log, TEXT("EKeys::MouseY"));
 
     }
     //GEngine->GetWorld();
