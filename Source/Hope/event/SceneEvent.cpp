@@ -64,10 +64,7 @@ void SceneEvent::OnTransOutFinished(){
     auto eSceneEventEnum = GetSceneEventEnum();
     if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_OUT_CURRENT){
         this->SetSceneEventEnum(ESceneEvent::TRANS_IN_NEXT);
-        auto pCurrentScene = SceneManager::GetInstance()->GetCurrentScene();
-        if (pCurrentScene){
-            pCurrentScene->OnExit();
-        }
+
     }else{
         ensureMsgf(false, TEXT("oops! SceneEvent::OnTransOutFinished() %d"), eSceneEventEnum);
     }
@@ -107,10 +104,17 @@ void  ChangeSceneEvent::Execute(){
         auto pCurrentScene = SceneManager::GetInstance()->GetCurrentScene();
         if (pCurrentScene){
             pCurrentScene->OnSceneDisable();
-            pCurrentScene->PlayTransOutAnimation(SharedThis(this));   
-        }else{
+            pCurrentScene->PlayTransOutAnimation(SharedThis(this));
+        }
+        else{
             OnTransOutFinished();
         }
+
+    }else if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_OUT_CURRENT){
+        auto gameController = SceneManager::GetInstance()->GetGameController();
+        auto transInScene = GetTransInScene();
+        checkf(transInScene, TEXT("SceneEvent eSceneEventEnum == ESceneEvent::WAIT_TRANS_OUT_CURRENT nullptr"));
+    
 
     }else if (eSceneEventEnum == ESceneEvent::TRANS_IN_NEXT){
         this->SetSceneEventEnum(ESceneEvent::WAIT_TRANS_IN_NEXT);
@@ -127,8 +131,7 @@ void  ChangeSceneEvent::Execute(){
     }else if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_IN_NEXT){
         auto gameController = SceneManager::GetInstance()->GetGameController();
         auto transInScene = GetTransInScene();
-
-        UE_LOG(LogHope, Log, TEXT("eSceneEventEnum == ESceneEvent::WAIT_TRANS_IN_NEXT"));
+        checkf(transInScene, TEXT("SceneEvent eSceneEventEnum == ESceneEvent::WAIT_TRANS_IN_NEXT nullptr"));
     }
 
 

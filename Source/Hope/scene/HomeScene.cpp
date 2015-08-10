@@ -60,6 +60,9 @@ void UHomeScene::OnSceneVisible(){
     UButton* btnStart = dynamic_cast<UButton*>(GetSceneWidget()->GetWidgetFromName(TEXT("BTN_START")));
     if (btnStart){
         btnStart->OnClicked.AddDynamic(this, &UHomeScene::StartGame);
+    }else{
+        checkf(btnStart, TEXT("UHomeScene::OnSceneVisible btnStart nullptr"));
+
     }
 
 

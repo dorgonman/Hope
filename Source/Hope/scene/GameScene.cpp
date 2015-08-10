@@ -27,6 +27,9 @@ UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
   //  if (PutNameHere.Class) {
         //SceneWidgetClass = PutNameHere.Class;
    // }
+    auto a = (int)this->GetMaskedFlags();
+    UE_LOG(LogHope, Log, TEXT("UGameScene::OnEnter BindUObject %d"), a);
+   ;
 }
 
 
@@ -56,11 +59,18 @@ void UGameScene::OnEnter(AGamePlayerController* pController){
         //auto playerController = UGameplayStatics::GetPlayerController(GEngine->GetWorld(), 0);
         SceneWidget = CreateWidget<USceneWidget>(pController, SceneWidgetClass);
         if (SceneWidget){
-
-            SceneWidget->OnAnimationFinishedDelegate.BindUObject(this, &UGameScene::OnAnimationFinished);
-
+            UE_LOG(LogHope, Log, TEXT("UGameScene::OnEnter BindUObject"));
+            if (!SceneWidget->OnAnimationFinishedDelegate.IsBound()){
+                SceneWidget->OnAnimationFinishedDelegate.BindDynamic(this, &UGameScene::OnAnimationFinished);
+            }
+            else{
+                checkf(SceneWidget, TEXT(" UGameScene::OnEnter(AGamePlayerController* pController) SceneWidget is nullptr"));
+            }
+           // SceneWidget->OnAnimationFinishedDelegate.//(this, &UGameScene::OnAnimationFinished);
             //let add it to the view port
             SceneWidget->AddToViewport();
+        }else{
+            checkf(SceneWidget, TEXT(" UGameScene::OnEnter(AGamePlayerController* pController) SceneWidget is nullptr"));
         }
     }
     //onLoadUILayer, assign value
@@ -72,13 +82,13 @@ void UGameScene::OnSceneVisible(){
 }
 void UGameScene::OnSceneDisable(){
     UE_LOG(LogHope, Log, TEXT("UGameScene::OnSceneDisable"));
-    GetSceneWidget()->WidgetTree->ForEachWidget([&](UWidget* Widget) {
+    /* GetSceneWidget()->WidgetTree->ForEachWidget([&](UWidget* Widget) {
         UButton* pBtn = dynamic_cast<UButton*>(Widget);
         if (pBtn){
             pBtn->OnClicked.Clear();
         }
         UE_LOG(LogHope, Log, TEXT("OnSceneDisable:%s"), *Widget->GetFName().ToString());
-    });
+    });*/
 
 }
 
@@ -86,7 +96,8 @@ void UGameScene::OnExit(){
 
     if (SceneWidget){
         SceneWidget->RemoveFromViewport();
-        SceneWidget->OnAnimationFinishedDelegate.Unbind();
+       // SceneWidget->BeginDestroy();
+        //SceneWidget->OnAnimationFinishedDelegate.Unbind();
     }
 }
 

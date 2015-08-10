@@ -32,11 +32,13 @@ public://scene Callback
     virtual UWidgetAnimation* GetWidgetAnimation(const FString& animeName);
 
 protected:
+    UFUNCTION()
     virtual void OnAnimationFinished(const FString& animeName);
 protected:
     void SetSceneWidgetClass(const TCHAR* widgetPath);
     USceneWidget* GetSceneWidget();
 private:
+    UPROPERTY()
     TSubclassOf<class UGameWidget> SceneWidgetClass;
     // Variable to hold the widget After Creating it.
     UPROPERTY()

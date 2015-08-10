@@ -34,6 +34,17 @@ void SceneManager::SetGameController(AGamePlayerController* pController) {
     //pController->DisableInput(pController);
     //pController->EnableInput();
 }
+
+
+void SceneManager::SetCurrentScene(UGameScene* pCurrentScene){
+    ensureMsgf(pCurrentScene, TEXT("oops! SceneManager::SetCurrentScene()"));
+    if (CurrentScene){
+        CurrentScene->OnExit();
+    }
+    CurrentScene = pCurrentScene;
+}
+
+
 void SceneManager::Tick(float dt){
 
 

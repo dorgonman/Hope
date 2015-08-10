@@ -4,8 +4,8 @@
 #include "GameWidget.generated.h"
 
 
-DECLARE_DELEGATE_OneParam(FAnimationFinishedDelegate, const FString&);
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAnimationFinishedDelegate, const FString&, animeName);
 
 UCLASS()
 class HOPE_API UGameWidget : public UUserWidget{
@@ -16,13 +16,17 @@ public:
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My New User Widget")
     FString MyNewWidgetName;
+    //DECLARE_DELEGATE_OneParam(FAnimationFinishedDelegate, const FString&);
+    
 public:
+   
+    UPROPERTY()
     FAnimationFinishedDelegate OnAnimationFinishedDelegate;
 };
 
 
 //DECLARE_DYNAMIC_DELEGATE_OneParam(FAnimationFinishedDelegate2, UGameWidget*, const FString&);
-DECLARE_DYNAMIC_DELEGATE_OneParam(FAnimationFinishedDelegate2, const FString&, Value);
+
 
 UCLASS()
 class HOPE_API USceneWidget : public UGameWidget{

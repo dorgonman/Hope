@@ -11,13 +11,16 @@ UGameWidget::UGameWidget(const FObjectInitializer& ObjectInitializer)
 
 void UGameWidget::OnAnimationFinished_Implementation(const UWidgetAnimation* Animation){
     UE_LOG(LogHope, Log, TEXT(" UGameWidget::OnAnimationFinished_Implementation"));
+    checkf(Animation, TEXT("UGameWidget::OnAnimationFinished_Implementation Animation is nullptr"));
+
     if (Animation){
+        checkf(OnAnimationFinishedDelegate.IsBound(), TEXT("UGameWidget::OnAnimationFinished_Implementation callback not bound"));
+
         if (OnAnimationFinishedDelegate.IsBound()){
             OnAnimationFinishedDelegate.ExecuteIfBound(Animation->MovieScene->GetFName().ToString());
-        }
-        else{
+        }else{
             UE_LOG(LogHope, Log, TEXT(" UGameWidget::OnAnimationFinished_Implementation oops2!"));
-        
+          
         }
     }
     else{
