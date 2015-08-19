@@ -80,7 +80,7 @@ void UHomeScene::OnSceneDisable(){
 
 void UHomeScene::StartGame(){
     UE_LOG(LogHope, Log, TEXT("StartGame:"));
-    SceneManager::GetInstance()->ChangeScene<UTitleScene>();
+    USceneManager::GetInstance()->ChangeScene<UTitleScene>();
 }
 
 

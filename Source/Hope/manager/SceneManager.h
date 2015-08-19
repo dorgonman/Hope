@@ -2,15 +2,18 @@
 
 
 #include "event/SceneEvent.h"
+#include "SceneManager.generated.h"
 class UGameScene;
 class AGamePlayerController;
 class SceneEvent;
-
-class HOPE_API SceneManager
+UCLASS()
+class HOPE_API USceneManager : public UObject
 {
-
+    GENERATED_BODY()
+    USceneManager(const FObjectInitializer& ObjectInitializer);
+    virtual ~USceneManager();
 public:
-    static SceneManager* GetInstance();
+    static USceneManager* GetInstance();
     static void Destroy();
 
     void SetGameController(AGamePlayerController* pController); 
@@ -23,19 +26,17 @@ public:
 
     UGameScene* GetCurrentScene(){ return CurrentScene; };
     void SetCurrentScene(UGameScene* pCurrentScene);
-private:
-    SceneManager();
-    ~SceneManager();
 
 
     template <typename T>
     void AddSceneEvent(UGameScene* pGameScene);
 private:
+    UPROPERTY()
     AGamePlayerController* GameController;
 
 
-
     TArray<TSharedPtr<SceneEvent>> SceneEventArr;
+    UPROPERTY()
     TArray<UGameScene*> SceneStack;
 
 
@@ -45,18 +46,18 @@ private:
 
 
 template <typename T>
-void SceneManager::ChangeScene(){
+void USceneManager::ChangeScene(){
     static_assert(std::is_convertible<T*, decltype(CurrentScene) >::value,
         "T can't assign to CurrentScene");
     UGameScene* pScene = NewObject<T>();//NewObject<T>(UGameScene::StaticClass());
     // ConstructObject<T> deprecated
-    pScene->SetFlags(GARBAGE_COLLECTION_KEEPFLAGS);
+    //pScene->SetFlags(GARBAGE_COLLECTION_KEEPFLAGS);
     //AWorldCell* EF6World = ConstructObject<AWorldCell>(AWorldCell::StaticClass());
     this->AddSceneEvent<ChangeSceneEvent>(pScene);
 };
 
 template <typename T>
-void SceneManager::AddSceneEvent(UGameScene* pGameScene){
+void USceneManager::AddSceneEvent(UGameScene* pGameScene){
     static_assert(std::is_convertible<T*, SceneEvent* >::value,
         "T can't push to SceneEventArr");
     TSharedPtr<SceneEvent> sceneEventPtr = MakeShareable(new T);

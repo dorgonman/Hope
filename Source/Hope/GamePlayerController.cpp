@@ -78,10 +78,10 @@ void AGamePlayerController::BeginPlay(){
     ensureMsg(nullptr != MainCameraActor , TEXT("MainCamera can't find"));
     //check((nullptr != MainCameraActor) && "Did you forget to call Init()?");
     //SetViewTarget(this->MainCameraActor);
-    SceneManager::Destroy();
-    SceneManager::GetInstance()->SetGameController(this);
+    USceneManager::Destroy();
+    USceneManager::GetInstance()->SetGameController(this);
     //TitleScene* pTitleScene = NewObject<TitleScene>();
-    SceneManager::GetInstance()->ChangeScene<UTitleScene>();
+    USceneManager::GetInstance()->ChangeScene<UTitleScene>();
    // this->MainCameraActor-> = ECameraProjectionMode::Orthographic;
     
 }
@@ -99,5 +99,8 @@ void AGamePlayerController::Tick(float DeltaSeconds){
 
     }
     //GEngine->GetWorld();
-    SceneManager::GetInstance()->Tick(DeltaSeconds);
+    USceneManager::GetInstance()->Tick(DeltaSeconds);
+
+
 }
+

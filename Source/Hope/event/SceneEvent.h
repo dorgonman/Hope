@@ -45,7 +45,7 @@ public: //ISceneEventListener
 private:
 
     ESceneEvent SceneEventEnum;
-    UPROPERTY()
+    UPROPERTY(Category = SceneEvent, EditAnywhere, AdvancedDisplay)
     UGameScene* TransInScene;
 };
 

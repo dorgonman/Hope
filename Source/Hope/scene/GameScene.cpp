@@ -27,14 +27,16 @@ UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
   //  if (PutNameHere.Class) {
         //SceneWidgetClass = PutNameHere.Class;
    // }
-    auto a = (int)this->GetMaskedFlags();
-    UE_LOG(LogHope, Log, TEXT("UGameScene::OnEnter BindUObject %d"), a);
-   ;
+ 
+    //this->SetFlags(EObjectFlags::RF_Native);
+    auto name = std::move(this->GetName());
+    UE_LOG(LogHope, Log, TEXT("UGameScene::UGameScene:%s"), *name);
 }
 
 
 UGameScene::~UGameScene(){
-
+    //auto name = std::move(this->GetName());
+   // UE_LOG(LogHope, Log, TEXT("UGameScene::~UGameScene:%s"), *name);
 }
 
 void UGameScene::SetSceneWidgetClass(const TCHAR* widgetPath){
@@ -47,6 +49,8 @@ void UGameScene::SetSceneWidgetClass(const TCHAR* widgetPath){
 USceneWidget* UGameScene::GetSceneWidget(){ return SceneWidget; };
 
 void UGameScene::Tick(float dt){
+   
+ 
 
 
 }

@@ -16,6 +16,6 @@ void UHorizonEngine::PreExit()
 }
 
 void UHorizonEngine::FinishDestroy(){
-    SceneManager::Destroy();
+    USceneManager::Destroy();
     Super::FinishDestroy();
 }
