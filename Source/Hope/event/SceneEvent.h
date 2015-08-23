@@ -1,22 +1,23 @@
 #pragma once
 
-#include "SharedPointer.h"
-class HOPE_API GameEvent : public TSharedFromThis< GameEvent >{
-public:
-    GameEvent();
-    virtual ~GameEvent();
-};
-
-
+//#include "SharedPointer.h"
+#include "GameEvent.h"
+#include "SceneEvent.generated.h"
 
 
 
 
 
 class UGameScene;
-class HOPE_API SceneEvent : public GameEvent {
+UCLASS()
+class HOPE_API USceneEvent : public UGameEvent {
 public:
-
+    GENERATED_BODY()
+    USceneEvent(const FObjectInitializer& ObjectInitializer);
+    virtual ~USceneEvent();
+protected:
+    USceneEvent(){};
+public:
     enum class ESceneEvent{
         INIT,
         TRANS_OUT_CURRENT,
@@ -26,8 +27,7 @@ public:
         FINISHED
     };
 public:
-    SceneEvent();
-    virtual ~SceneEvent();
+
 
     virtual void         Execute();
     void                 SetSceneEventEnum(ESceneEvent eventEnum){ SceneEventEnum = eventEnum; };
@@ -47,11 +47,4 @@ private:
     ESceneEvent SceneEventEnum;
     UPROPERTY(Category = SceneEvent, EditAnywhere, AdvancedDisplay)
     UGameScene* TransInScene;
-};
-
-class HOPE_API ChangeSceneEvent : public SceneEvent {
-public:
-    ChangeSceneEvent();
-    virtual ~ChangeSceneEvent();
-    virtual void         Execute() override;
 };

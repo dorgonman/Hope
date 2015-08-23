@@ -9,7 +9,7 @@ class AGamePlayerController;
 class UWidgetAnimation;
 class USceneWidget;
 class UWidgetAnimation;
-class SceneEvent;
+class USceneEvent;
 UCLASS()
 class HOPE_API UGameScene : public UObject
 {
@@ -27,8 +27,8 @@ public://scene Callback
 
 
 
-    virtual void PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent);
-    virtual void PlayTransInAnimation(const TSharedPtr<SceneEvent>& pSceneEvent);
+    virtual void PlayTransOutAnimation(USceneEvent* pSceneEvent);
+    virtual void PlayTransInAnimation(USceneEvent* pSceneEvent);
     virtual UWidgetAnimation* GetWidgetAnimation(const FString& animeName);
 
 protected:
@@ -44,6 +44,7 @@ private:
     UPROPERTY()
     USceneWidget* SceneWidget;
 
-    TWeakPtr<SceneEvent> SceneEventListenerWeakPtr;
+    TWeakObjectPtr<class USceneEvent> SceneEventListenerWeakPtr;
+    //TWeakPtr<USceneEvent> SceneEventListenerWeakPtr;
 };
 

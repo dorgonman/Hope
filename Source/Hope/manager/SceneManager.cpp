@@ -35,8 +35,6 @@ void USceneManager::Destroy(){
 
 void USceneManager::SetGameController(AGamePlayerController* pController) {
     GameController = pController;
-    //pController->DisableInput(pController);
-    //pController->EnableInput();
 }
 
 

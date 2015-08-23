@@ -146,15 +146,22 @@ void UGameScene::OnAnimationFinished(const FString& animeName){
 
     if (animeName.Equals(BEGIN_ENTER)){
         UE_LOG(LogHope, Log, TEXT("UGameScene::onAnimationFinished begin_enter"));
-        SceneEventListenerWeakPtr.Pin()->OnTransInFinished();
+        if (SceneEventListenerWeakPtr.IsValid()){
+            SceneEventListenerWeakPtr.Get()->OnTransInFinished();
+        }
+            
+           
     }else if (animeName.Equals(BEGIN_EXIT)){
         UE_LOG(LogHope, Log, TEXT("UGameScene::onAnimationFinished begin_exit"));
-        SceneEventListenerWeakPtr.Pin()->OnTransOutFinished();
+        if (SceneEventListenerWeakPtr.IsValid()){
+            SceneEventListenerWeakPtr.Get()->OnTransOutFinished();
+        }
+
     }
 }
 
 
-void UGameScene::PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent){
+void UGameScene::PlayTransOutAnimation(USceneEvent* pSceneEvent){
 
     SceneEventListenerWeakPtr = pSceneEvent;
     auto animeName = FString(BEGIN_EXIT);
@@ -171,7 +178,7 @@ void UGameScene::PlayTransOutAnimation(const TSharedPtr<SceneEvent>& pSceneEvent
 }
 
 
-void UGameScene::PlayTransInAnimation(const TSharedPtr<SceneEvent>& pSceneEvent){
+void UGameScene::PlayTransInAnimation(USceneEvent* pSceneEvent){
 
     SceneEventListenerWeakPtr = pSceneEvent;
     auto animeName = FString(BEGIN_ENTER);

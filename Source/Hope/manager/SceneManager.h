@@ -1,11 +1,13 @@
 #pragma once
 
 
-#include "event/SceneEvent.h"
+
+#include "event/ChangeSceneEvent.h"
 #include "SceneManager.generated.h"
 class UGameScene;
 class AGamePlayerController;
-class SceneEvent;
+class USceneEvent;
+class UChangeSceneEvent;
 UCLASS()
 class HOPE_API USceneManager : public UObject
 {
@@ -34,8 +36,8 @@ private:
     UPROPERTY()
     AGamePlayerController* GameController;
 
-
-    TArray<TSharedPtr<SceneEvent>> SceneEventArr;
+    UPROPERTY()
+    TArray<USceneEvent*> SceneEventArr;
     UPROPERTY()
     TArray<UGameScene*> SceneStack;
 
@@ -53,15 +55,16 @@ void USceneManager::ChangeScene(){
     // ConstructObject<T> deprecated
     //pScene->SetFlags(GARBAGE_COLLECTION_KEEPFLAGS);
     //AWorldCell* EF6World = ConstructObject<AWorldCell>(AWorldCell::StaticClass());
-    this->AddSceneEvent<ChangeSceneEvent>(pScene);
+    this->AddSceneEvent<UChangeSceneEvent>(pScene);
 };
 
 template <typename T>
 void USceneManager::AddSceneEvent(UGameScene* pGameScene){
-    static_assert(std::is_convertible<T*, SceneEvent* >::value,
+    static_assert(std::is_convertible<T*, USceneEvent* >::value,
         "T can't push to SceneEventArr");
-    TSharedPtr<SceneEvent> sceneEventPtr = MakeShareable(new T);
-    sceneEventPtr->SetTransInScene(pGameScene);
-    SceneEventArr.Add(sceneEventPtr);
+    //TSharedPtr<SceneEvent> sceneEventPtr = MakeShareable(new T);
+    USceneEvent* sceneEvent = NewObject<T>();
+    sceneEvent->SetTransInScene(pGameScene);
+    SceneEventArr.Add(sceneEvent);
 
 };
