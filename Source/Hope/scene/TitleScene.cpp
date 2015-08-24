@@ -52,7 +52,7 @@ void UTitleScene::OnEnter(AGamePlayerController* pController){
 }
 
 void UTitleScene::OnExit(){
-
+    Super::OnExit();
 
 }
 

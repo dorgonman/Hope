@@ -40,7 +40,6 @@ void  UChangeSceneEvent::Execute(){
         this->SetSceneEventEnum(ESceneEvent::WAIT_TRANS_IN_NEXT);
         auto gameController = USceneManager::GetInstance()->GetGameController();
         auto transInScene = GetTransInScene();
-        USceneManager::GetInstance()->SetCurrentScene(transInScene);
         if (transInScene){
             transInScene->OnEnter(gameController);
             transInScene->PlayTransInAnimation(this);
@@ -60,3 +59,7 @@ void  UChangeSceneEvent::Execute(){
 //==============end UChangeSceneEvent===========================
 
 
+/*	if ( ULocalPlayer* Player = World->GetFirstLocalPlayerFromController() )
+	{
+		NewWidget->SetPlayerContext(FLocalPlayerContext(Player));
+        }*/

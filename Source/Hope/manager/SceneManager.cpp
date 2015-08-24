@@ -40,7 +40,7 @@ void USceneManager::SetGameController(AGamePlayerController* pController) {
 
 void USceneManager::SetCurrentScene(UGameScene* pCurrentScene){
     ensureMsgf(pCurrentScene, TEXT("oops! SceneManager::SetCurrentScene()"));
-    if (CurrentScene){
+    if (CurrentScene && CurrentScene->IsValidLowLevelFast()){
         CurrentScene->OnExit();
     }
     CurrentScene = pCurrentScene;
@@ -57,8 +57,6 @@ void USceneManager::Tick(float dt){
         if (pEvent->IsFinished()){
             CurrentScene = pEvent->GetTransInScene();
             SceneEventArr.Remove(pEvent);
-            
-            UE_LOG(LogHope, Log, TEXT("SceneEventArr:%d"), SceneEventArr.Num());
         }else{
             pEvent->Execute();
         
@@ -73,3 +71,26 @@ void USceneManager::Tick(float dt){
 
 }
 
+
+UWorld* USceneManager::GetWorld(){
+    if (GameController){
+        return GameController->GetWorld();
+    }
+
+    return nullptr; 
+}
+
+void USceneManager::TryGarbageCollection(bool bIgnoreMemoryUsage){
+    FPlatformMemory::DumpStats(*GLog);
+
+    const float InvMB = 1.0f / 1024.0f / 1024.0f;
+    auto stats = FPlatformMemory::GetStats();
+    float availablePhysicalMB = stats.AvailablePhysical * InvMB;
+    if (availablePhysicalMB < 100 || bIgnoreMemoryUsage){
+        auto world = USceneManager::GetInstance()->GetWorld();
+        if (world){
+            //start try GC
+            world->PerformGarbageCollectionAndCleanupActors();
+        }
+    }
+}

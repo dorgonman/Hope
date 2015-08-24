@@ -14,6 +14,6 @@ public:
     virtual ~UChangeSceneEvent();
 protected:
     UChangeSceneEvent(){};
-
+public:
     virtual void         Execute() override;
 };

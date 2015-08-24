@@ -51,7 +51,7 @@ void UHomeScene::OnEnter(AGamePlayerController* pController){
 }
 
 void UHomeScene::OnExit(){
-
+    Super::OnExit();
 
 }
 

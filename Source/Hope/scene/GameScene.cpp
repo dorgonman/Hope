@@ -35,6 +35,9 @@ UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
 
 
 UGameScene::~UGameScene(){
+    SceneWidget = nullptr;
+    SceneWidgetClass = nullptr;
+    SceneEventListenerWeakPtr.Reset();
     //auto name = std::move(this->GetName());
    // UE_LOG(LogHope, Log, TEXT("UGameScene::~UGameScene:%s"), *name);
 }

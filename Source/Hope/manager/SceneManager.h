@@ -32,6 +32,14 @@ public:
 
     template <typename T>
     void AddSceneEvent(UGameScene* pGameScene);
+
+    virtual UWorld* GetWorld();
+#if (UE_BUILD_DEVELOPMENT == 1)
+    virtual void TryGarbageCollection(bool bIgnoreMemoryUsage = true);
+#else
+    virtual void TryGarbageCollection(bool bIgnoreMemoryUsage = false);
+#endif
+
 private:
     UPROPERTY()
     AGamePlayerController* GameController;

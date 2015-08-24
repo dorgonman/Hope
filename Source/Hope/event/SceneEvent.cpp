@@ -18,9 +18,6 @@ UGameScene* USceneEvent::GetTransInScene(){
 
 void USceneEvent::SetTransInScene(UGameScene* pTransInScene){
     checkf(pTransInScene, TEXT("SceneEvent::SetTransInScene(nullptr)"));
-    if (TransInScene){
-        TransInScene->BeginDestroy();
-    }
     TransInScene = pTransInScene;
 }
 
@@ -40,7 +37,6 @@ void USceneEvent::OnTransOutFinished(){
     auto eSceneEventEnum = GetSceneEventEnum();
     if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_OUT_CURRENT){
         this->SetSceneEventEnum(ESceneEvent::TRANS_IN_NEXT);
-
     }else{
         ensureMsgf(false, TEXT("oops! SceneEvent::OnTransOutFinished() %d"), eSceneEventEnum);
     }
@@ -55,6 +51,9 @@ void USceneEvent::OnTransInFinished(){
             transInScene->OnSceneVisible();
         }
         USceneManager::GetInstance()->SetCurrentScene(transInScene);
+        
+        USceneManager::GetInstance()->TryGarbageCollection();
+       
     }else{
         ensureMsgf(false, TEXT("oops! SceneEvent::OnTransInFinished() %d"), eSceneEventEnum);
     }
