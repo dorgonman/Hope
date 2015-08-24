@@ -56,7 +56,16 @@ void  UChangeSceneEvent::Execute(){
 
 }
 
-//==============end UChangeSceneEvent===========================
+void UChangeSceneEvent::OnTransOutFinished(){
+    Super::OnTransOutFinished();
+
+
+}
+void UChangeSceneEvent::OnTransInFinished(){
+    USceneManager::GetInstance()->ClearSceneStack();
+    Super::OnTransInFinished();
+
+}
 
 
 /*	if ( ULocalPlayer* Player = World->GetFirstLocalPlayerFromController() )

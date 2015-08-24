@@ -29,8 +29,7 @@ void USceneManager::Destroy(){
         s_instance->RemoveFromRoot();
         s_instance = nullptr;
     }
-    //delete s_instance;
-    //s_instance = nullptr;
+
 }
 
 void USceneManager::SetGameController(AGamePlayerController* pController) {
@@ -44,18 +43,17 @@ void USceneManager::SetCurrentScene(UGameScene* pCurrentScene){
         CurrentScene->OnExit();
     }
     CurrentScene = pCurrentScene;
+    if (!SceneStack.Contains(pCurrentScene)){
+        SceneStack.Emplace(CurrentScene);
+    }
 }
 
 
 void USceneManager::Tick(float dt){
 
-
-
-
     if (SceneEventArr.Num() > 0){
         auto pEvent = SceneEventArr[0];
         if (pEvent->IsFinished()){
-            CurrentScene = pEvent->GetTransInScene();
             SceneEventArr.Remove(pEvent);
         }else{
             pEvent->Execute();
@@ -64,7 +62,7 @@ void USceneManager::Tick(float dt){
         return;
     }
 
-    if (CurrentScene->IsValidLowLevel()){
+    if (nullptr != CurrentScene && CurrentScene->IsValidLowLevel()){
         CurrentScene->Tick(dt);
     }
  
@@ -72,7 +70,7 @@ void USceneManager::Tick(float dt){
 }
 
 
-UWorld* USceneManager::GetWorld(){
+UWorld* USceneManager::GetWorld() const{
     if (GameController){
         return GameController->GetWorld();
     }
@@ -93,4 +91,9 @@ void USceneManager::TryGarbageCollection(bool bIgnoreMemoryUsage){
             world->PerformGarbageCollectionAndCleanupActors();
         }
     }
+}
+
+
+void USceneManager::ClearSceneStack(){
+    SceneStack.Empty();
 }

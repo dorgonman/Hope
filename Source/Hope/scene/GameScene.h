@@ -10,6 +10,8 @@ class UWidgetAnimation;
 class USceneWidget;
 class UWidgetAnimation;
 class USceneEvent;
+
+//game scene for render: 1. UI 2. 3D...and other render task
 UCLASS()
 class HOPE_API UGameScene : public UObject
 {

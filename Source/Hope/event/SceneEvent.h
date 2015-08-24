@@ -5,7 +5,7 @@
 #include "SceneEvent.generated.h"
 
 
-
+//push, pop
 
 
 class UGameScene;
@@ -39,7 +39,7 @@ public:
     UGameScene* GetTransInScene();
     void SetTransInScene(UGameScene* pTransInScene);
 
-public: //ISceneEventListener
+public:
     virtual void OnTransOutFinished();
     virtual void OnTransInFinished();
 private:

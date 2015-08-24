@@ -2,18 +2,18 @@
 
 //#include "SharedPointer.h"
 #include "SceneEvent.h"
-#include "ChangeSceneEvent.generated.h"
+#include "PopSceneEvent.generated.h"
 
 
 UCLASS()
-class HOPE_API UChangeSceneEvent : public USceneEvent {
+class HOPE_API UPopSceneEvent : public USceneEvent {
   
 public:
     GENERATED_BODY()
-    UChangeSceneEvent(const FObjectInitializer& ObjectInitializer);
-    virtual ~UChangeSceneEvent();
+    UPopSceneEvent(const FObjectInitializer& ObjectInitializer);
+    virtual ~UPopSceneEvent();
 protected:
-    UChangeSceneEvent(){};
+    UPopSceneEvent(){};
 
 protected:
     virtual void OnTransOutFinished();

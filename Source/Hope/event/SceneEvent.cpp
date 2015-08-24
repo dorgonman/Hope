@@ -25,8 +25,8 @@ void USceneEvent::SetTransInScene(UGameScene* pTransInScene){
 void USceneEvent::Execute(){
 
     if (GetSceneEventEnum() == ESceneEvent::INIT){
-        auto gameController = USceneManager::GetInstance()->GetGameController();
-        gameController->DisableInput(gameController);
+        //auto gameController = USceneManager::GetInstance()->GetGameController();
+       // gameController->DisableInput(gameController);
         this->SetSceneEventEnum(ESceneEvent::TRANS_OUT_CURRENT);
 
     } 
@@ -36,11 +36,20 @@ void USceneEvent::Execute(){
 void USceneEvent::OnTransOutFinished(){
     auto eSceneEventEnum = GetSceneEventEnum();
     if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_OUT_CURRENT){
+        auto currentScene = USceneManager::GetInstance()->GetCurrentScene();
+        if (currentScene){
+            currentScene->OnSceneDisable();
+        }
+        auto transInScene = GetTransInScene();
+        USceneManager::GetInstance()->SetCurrentScene(transInScene);
         this->SetSceneEventEnum(ESceneEvent::TRANS_IN_NEXT);
-    }else{
+    }
+    else{
         ensureMsgf(false, TEXT("oops! SceneEvent::OnTransOutFinished() %d"), eSceneEventEnum);
     }
 }
+
+
 void USceneEvent::OnTransInFinished(){
     auto eSceneEventEnum = GetSceneEventEnum();
     if (eSceneEventEnum == ESceneEvent::WAIT_TRANS_IN_NEXT){
@@ -49,13 +58,12 @@ void USceneEvent::OnTransInFinished(){
         auto transInScene = GetTransInScene();
         if (transInScene){
             transInScene->OnSceneVisible();
-        }
-        USceneManager::GetInstance()->SetCurrentScene(transInScene);
-        
+        }  
         USceneManager::GetInstance()->TryGarbageCollection();
-       
+      
     }else{
         ensureMsgf(false, TEXT("oops! SceneEvent::OnTransInFinished() %d"), eSceneEventEnum);
     }
    
 }
+

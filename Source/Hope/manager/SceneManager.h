@@ -8,6 +8,9 @@ class UGameScene;
 class AGamePlayerController;
 class USceneEvent;
 class UChangeSceneEvent;
+
+//GameSceneManager
+
 UCLASS()
 class HOPE_API USceneManager : public UObject
 {
@@ -33,13 +36,15 @@ public:
     template <typename T>
     void AddSceneEvent(UGameScene* pGameScene);
 
-    virtual UWorld* GetWorld();
+    virtual UWorld* GetWorld() const;
 #if (UE_BUILD_DEVELOPMENT == 1)
     virtual void TryGarbageCollection(bool bIgnoreMemoryUsage = true);
 #else
     virtual void TryGarbageCollection(bool bIgnoreMemoryUsage = false);
 #endif
 
+
+    virtual void ClearSceneStack();
 private:
     UPROPERTY()
     AGamePlayerController* GameController;

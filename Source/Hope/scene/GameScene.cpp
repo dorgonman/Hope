@@ -29,8 +29,8 @@ UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
    // }
  
     //this->SetFlags(EObjectFlags::RF_Native);
-    auto name = std::move(this->GetName());
-    UE_LOG(LogHope, Log, TEXT("UGameScene::UGameScene:%s"), *name);
+    //auto name = std::move(this->GetName());
+    //UE_LOG(LogHope, Log, TEXT("UGameScene::UGameScene:%s"), *name);
 }
 
 
@@ -66,7 +66,7 @@ void UGameScene::OnEnter(AGamePlayerController* pController){
         //auto playerController = UGameplayStatics::GetPlayerController(GEngine->GetWorld(), 0);
         SceneWidget = CreateWidget<USceneWidget>(pController, SceneWidgetClass);
         if (SceneWidget){
-            UE_LOG(LogHope, Log, TEXT("UGameScene::OnEnter BindUObject"));
+            //UE_LOG(LogHope, Log, TEXT("UGameScene::OnEnter BindUObject"));
             if (!SceneWidget->OnAnimationFinishedDelegate.IsBound()){
                 SceneWidget->OnAnimationFinishedDelegate.BindDynamic(this, &UGameScene::OnAnimationFinished);
             }
@@ -85,10 +85,10 @@ void UGameScene::OnEnter(AGamePlayerController* pController){
 
 
 void UGameScene::OnSceneVisible(){
-    UE_LOG(LogHope, Log, TEXT("UGameScene::OnSceneVisible"));
+   // UE_LOG(LogHope, Log, TEXT("UGameScene::OnSceneVisible"));
 }
 void UGameScene::OnSceneDisable(){
-    UE_LOG(LogHope, Log, TEXT("UGameScene::OnSceneDisable"));
+    //UE_LOG(LogHope, Log, TEXT("UGameScene::OnSceneDisable"));
     /* GetSceneWidget()->WidgetTree->ForEachWidget([&](UWidget* Widget) {
         UButton* pBtn = dynamic_cast<UButton*>(Widget);
         if (pBtn){
