@@ -12,9 +12,11 @@
 #include "scene/TitleScene.h"
 #include "UMG.h"
 
+#include "HorizonCore.h"
 
 
 
+#include "StateMachineContext.h"
 
 namespace boost
 {
@@ -51,6 +53,8 @@ AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectIni
     //GetWorld()->AddController(this);
     boost::asio::io_service io_service;
     io_service.run();
+    horizon::HTest t1;
+
 }
 
 AGamePlayerController::~AGamePlayerController(){
@@ -112,6 +116,14 @@ void AGamePlayerController::BeginPlay(){
     USceneManager::GetInstance()->SetGameController(this);
     //TitleScene* pTitleScene = NewObject<TitleScene>();
     USceneManager::GetInstance()->ChangeScene<UTitleScene>();
+
+
+    IHorizonCoreModule* horizonCoreModule = FModuleManager::LoadModulePtr<IHorizonCoreModule>("HorizonCore");
+    if (horizonCoreModule != NULL)
+    {
+        horizonCoreModule->DumpModuleInfo();
+    }
+
    // this->MainCameraActor-> = ECameraProjectionMode::Orthographic;
     
 }

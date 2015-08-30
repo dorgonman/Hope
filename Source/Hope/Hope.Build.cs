@@ -26,6 +26,6 @@ public class Hope : ModuleRules
 		//		}
 		// }
 
-        PrivateDependencyModuleNames.AddRange(new string[] { "Boost" });
+        PrivateDependencyModuleNames.AddRange(new string[] { "Boost", "HorizonCore" });
 	}
 }

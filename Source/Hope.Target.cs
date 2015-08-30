@@ -20,6 +20,6 @@ public class HopeTarget : TargetRules
 		ref List<string> OutExtraModuleNames
 		)
 	{
-		OutExtraModuleNames.AddRange( new string[] { "Hope" } );
+        OutExtraModuleNames.AddRange(new string[] { "Hope"});
 	}
 }

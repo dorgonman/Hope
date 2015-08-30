@@ -12,6 +12,12 @@
 				"Engine",
 				"Paper2D"
 			]
+		},
+		{
+			"Name": "HorizonCore",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
 		}
+
 	]
 }
