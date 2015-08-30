@@ -39,7 +39,7 @@ public class Boost : ModuleRules
 
         if (isLibrarySupported)
         {
-            PublicIncludePaths.Add(BoostModuleIncludePath);
+            PublicIncludePaths.Add(ModuleIncludePath);
 
         }   
         Definitions.Add(string.Format("WITH_BOOST_BINDING={0}", isLibrarySupported ? 1 : 0));
@@ -151,18 +151,18 @@ public class Boost : ModuleRules
     {
         get { return Path.GetDirectoryName(RulesCompiler.GetModuleFilename(this.GetType().Name)); }
     }
-    private string BoostModulePath
+    private string ModuleFullPath
     {
        get { return Path.GetFullPath(Path.Combine(ModulePath, ".")); }
        //get { return Path.GetFullPath(Path.Combine(UEBuildConfiguration.UEThirdPartySourceDirectory, "Boost")); }
     }	
-    private string BoostModuleIncludePath
+    private string ModuleIncludePath
     {
-        get { return Path.GetFullPath(Path.Combine(BoostModulePath, "boost_1_57_0")); }
+        get { return Path.GetFullPath(Path.Combine(ModuleFullPath, "boost_1_57_0")); }
     }	
     private string LibrariesWin64Path
 	{
-        get { return Path.GetFullPath(Path.Combine(BoostModuleIncludePath, "stage", "lib", "Win64", 
+        get { return Path.GetFullPath(Path.Combine(ModuleIncludePath, "stage", "lib", "Win64", 
         										   "VS" + WindowsPlatform.GetVisualStudioCompilerVersionName(), 
                                                    //"DynamicLinkLibrary"
                                                    "StaticLibrary"
@@ -172,7 +172,7 @@ public class Boost : ModuleRules
     {
         get
         {
-            return Path.GetFullPath(Path.Combine(BoostModuleIncludePath, "stage", "lib", "Win32",
+            return Path.GetFullPath(Path.Combine(ModuleIncludePath, "stage", "lib", "Win32",
                                                  "VS" + WindowsPlatform.GetVisualStudioCompilerVersionName(),
                                                 //"DynamicLinkLibrary"
                                                  "StaticLibrary"
@@ -181,7 +181,7 @@ public class Boost : ModuleRules
     }		
     private string LibrariesMacPath
 	{
-        get { return Path.GetFullPath(Path.Combine(BoostModuleIncludePath, "stage", "lib", "Mac", "x86_64"//, 
+        get { return Path.GetFullPath(Path.Combine(ModuleIncludePath, "stage", "lib", "Mac", "x86_64"//, 
                                                    //"DynamicLinkLibrary"
                                                   // "StaticLibrary"
                                                    )); }
@@ -189,7 +189,7 @@ public class Boost : ModuleRules
 
     private string LibrariesAndroidPath
 	{
-        get { return Path.GetFullPath(Path.Combine(BoostModuleIncludePath, "stage", "lib", "Android", "arm-linux-androideabi"//, 
+        get { return Path.GetFullPath(Path.Combine(ModuleIncludePath, "stage", "lib", "Android", "arm-linux-androideabi"//, 
                                                    //"DynamicLinkLibrary"
                                                   // "StaticLibrary"
                                                    )); }
