@@ -16,7 +16,7 @@
 		{
 			"Name": "HorizonCore",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "PreLoadingScreen"
 		}
 
 	]

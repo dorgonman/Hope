@@ -2,7 +2,7 @@
 
 #include "HorizonCore.h"
 
-#include "Slate.h"
+#include "SlateBasics.h"
 
 
 class FHorizonCoreModule : public IHorizonCoreModule

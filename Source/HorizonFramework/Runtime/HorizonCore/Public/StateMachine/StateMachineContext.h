@@ -86,7 +86,7 @@ namespace horizon{
     };
 
 
-    class HTest{
+    class HORIZONCORE_API HTest{
     public:
         HTest();
         ~HTest();
