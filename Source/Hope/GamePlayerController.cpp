@@ -11,6 +11,35 @@
 #include "MovieScene.h"
 #include "scene/TitleScene.h"
 #include "UMG.h"
+
+
+
+
+
+namespace boost
+{
+
+#ifdef BOOST_NO_EXCEPTIONS
+
+    void throw_exception(std::exception const & e){
+        throw e;
+    }; // user defined
+
+#else
+
+    template<class E> void throw_exception(E const & e)
+    {
+        throw e;
+    }
+
+#endif
+
+}
+
+
+
+
+//#include <boost/system/config.hpp>
 AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
     , MainCameraActor(nullptr)
@@ -20,7 +49,8 @@ AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectIni
     this->bEnableMouseOverEvents = true;
     //UGameplayStatics::GetPlayerController
     //GetWorld()->AddController(this);
-
+    boost::asio::io_service io_service;
+    io_service.run();
 }
 
 AGamePlayerController::~AGamePlayerController(){

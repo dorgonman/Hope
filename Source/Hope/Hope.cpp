@@ -5,3 +5,5 @@
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, Hope, "Hope" );
 
 DEFINE_LOG_CATEGORY(LogHope);
+
+

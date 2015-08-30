@@ -25,5 +25,7 @@ public class Hope : ModuleRules
 		//			DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
 		//		}
 		// }
+
+        PrivateDependencyModuleNames.AddRange(new string[] { "Boost" });
 	}
 }
