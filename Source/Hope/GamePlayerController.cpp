@@ -12,10 +12,10 @@
 #include "scene/TitleScene.h"
 #include "UMG.h"
 
-#include "HorizonCore.h"
+//#include "HorizonCore.h"
 
 
-
+/*
 #include "StateMachineContext.h"
 
 namespace boost
@@ -124,7 +124,7 @@ void start(){
     sm.processEvent(horizon::events::GameStartEvent());
     sm.processEvent(horizon::events::GameExitToTitleViewEvent());
     sm.stop();
-}
+}*/
 
 
 //#include <boost/system/config.hpp>
@@ -137,11 +137,11 @@ AGamePlayerController::AGamePlayerController(const FObjectInitializer& ObjectIni
     this->bEnableMouseOverEvents = true;
     //UGameplayStatics::GetPlayerController
     //GetWorld()->AddController(this);
-    boost::asio::io_service io_service;
-    io_service.run();
-    horizon::HTest t1;
+   // boost::asio::io_service io_service;
+    //io_service.run();
+    //horizon::HTest t1;
 
-    start();
+    //start();
 
 }
 
@@ -206,10 +206,10 @@ void AGamePlayerController::BeginPlay(){
     USceneManager::GetInstance()->ChangeScene<UTitleScene>();
 
 
-    IHorizonCoreModule* horizonCoreModule = FModuleManager::LoadModulePtr<IHorizonCoreModule>("HorizonCore");
-    if (horizonCoreModule != NULL)
+    //IHorizonCoreModule* horizonCoreModule = FModuleManager::LoadModulePtr<IHorizonCoreModule>("HorizonCore");
+    //if (horizonCoreModule != NULL)
     {
-        horizonCoreModule->DumpModuleInfo();
+      //  horizonCoreModule->DumpModuleInfo();
     }
 
    // this->MainCameraActor-> = ECameraProjectionMode::Orthographic;

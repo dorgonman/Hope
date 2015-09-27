@@ -8,6 +8,6 @@ DECLARE_LOG_CATEGORY_EXTERN(LogHope, Log, All);
 
 #define SAFE_DELETE(p) if(p){ delete p;} p = nullptr;
 
-#include "AllowWindowsPlatformTypes.h" 
-#include <boost/asio.hpp>
-#include "HideWindowsPlatformTypes.h"
+//#include "AllowWindowsPlatformTypes.h" 
+//#include <boost/asio.hpp>
+//#include "HideWindowsPlatformTypes.h"

@@ -31,8 +31,8 @@ UGameScene::UGameScene(const FObjectInitializer& ObjectInitializer)
     //this->SetFlags(EObjectFlags::RF_Native);
     //auto name = std::move(this->GetName());
     //UE_LOG(LogHope, Log, TEXT("UGameScene::UGameScene:%s"), *name);
-    boost::asio::io_service io_service;
-    io_service.run();
+   // boost::asio::io_service io_service;
+   // io_service.run();
 }
 
 

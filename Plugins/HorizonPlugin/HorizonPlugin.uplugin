@@ -14,16 +14,6 @@
             "Name": "HorizonPlugin",
             "Type": "Runtime",
             "LoadingPhase": "PreDefault"
-        },
-        {
-            "Name": "HorizonDeveloperPlugin",
-            "Type": "Developer",
-            "LoadingPhase": "PostEngineInit"
-        },
-        {
-			"Name" : "HorizonEditorPlugin",
-			"Type" : "Editor",
-			"LoadingPhase" : "PostEngineInit"
-		}
+        }
 	]
 }
