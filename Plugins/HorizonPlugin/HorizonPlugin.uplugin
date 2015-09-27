@@ -1,0 +1,29 @@
+{
+	"FileVersion" : 3,
+	"FriendlyName" : "HorizonPlugin",
+	"Version" : 1,
+	"VersionName" : "0.5",
+	"CreatedBy" : "dorgon",
+	"CreatedByURL" : "http://dorgon.horizon-studio.net",
+	"EngineVersion" : "4.9.1",
+	"Description" : "UE4 plugin for Horizon Engine",
+    "Category": "Horizon",
+ 	"Modules" :
+	[
+        {
+            "Name": "HorizonPlugin",
+            "Type": "Runtime",
+            "LoadingPhase": "PreDefault"
+        },
+        {
+            "Name": "HorizonDeveloperPlugin",
+            "Type": "Developer",
+            "LoadingPhase": "PostEngineInit"
+        },
+        {
+			"Name" : "HorizonEditorPlugin",
+			"Type" : "Editor",
+			"LoadingPhase" : "PostEngineInit"
+		}
+	]
+}

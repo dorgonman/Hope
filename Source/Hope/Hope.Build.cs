@@ -12,7 +12,7 @@ public class Hope : ModuleRules
 
 
        // PublicDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore", "MovieSceneCore", "UnrealEd" });
-        PublicDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore", "MovieSceneCore" });
+        PublicDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore" });
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
         //Definitions.Add("PERF_DETAILED_PER_CLASS_GC_STATS");
@@ -26,6 +26,6 @@ public class Hope : ModuleRules
 		//		}
 		// }
 
-        PrivateDependencyModuleNames.AddRange(new string[] { "Boost", "HorizonCore" });
+       // PrivateDependencyModuleNames.AddRange(new string[] { "Boost", "HorizonCore" });
 	}
 }
