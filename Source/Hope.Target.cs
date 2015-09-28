@@ -8,6 +8,7 @@ public class HopeTarget : TargetRules
 	public HopeTarget(TargetInfo Target)
 	{
 		Type = TargetType.Game;
+        //bDebugBuildsActuallyUseDebugCRT = false;
 	}
 
 	//

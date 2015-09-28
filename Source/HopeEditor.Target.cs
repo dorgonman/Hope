@@ -8,6 +8,7 @@ public class HopeEditorTarget : TargetRules
 	public HopeEditorTarget(TargetInfo Target)
 	{
 		Type = TargetType.Editor;
+        //bDebugBuildsActuallyUseDebugCRT = false;
 	}
 
 	//
@@ -20,6 +21,7 @@ public class HopeEditorTarget : TargetRules
 		ref List<string> OutExtraModuleNames
 		)
 	{
+
         OutExtraModuleNames.AddRange(new string[] { "Hope"});
         // OutExtraModuleNames.AddRange(new string[] { "Hope", "HorizonCore" });
 	}
