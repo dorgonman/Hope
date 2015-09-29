@@ -27,7 +27,7 @@ public class BoostModule : ModuleRules
 		Type = ModuleType.External;
 
 		checkExternalLibPath();
-        parseBoostVersion(Target);
+        parseVersion(Target);
 
         bool isLibrarySupported = false;
 
@@ -61,7 +61,7 @@ public class BoostModule : ModuleRules
         if (String.IsNullOrEmpty(ModuleLibRootPath))
         //if (Directory.Exists(ModuleLibRootPath))
         {
-            System.Diagnostics.Debug.Assert(false, "checkExternalLibPath failed: Could not find " + ModuleEnvName + " in System Environment");
+            System.Diagnostics.Debug.Assert(false, "checkExternalLibPath failed: Could not find " + ModuleLibRootEnvName + " in System Environment");
         }
 	}
 
@@ -70,7 +70,7 @@ public class BoostModule : ModuleRules
         if (Target.Platform == UnrealTargetPlatform.Win64 ||
             Target.Platform == UnrealTargetPlatform.Win32)
         {
-            string boostVer = "-" + BoostVersion;
+            string boostVer = "-" + LibraryVersion;
             string gd = "";// -gd, should not use debug version
             string vc = "-" + WindowsVSToolSet;
             string mt = "-mt";
@@ -84,7 +84,7 @@ public class BoostModule : ModuleRules
         }
     }
 
-    void parseBoostVersion(TargetInfo Target)
+    void parseVersion(TargetInfo Target)
     {
         string verionFile = Path.GetFullPath(Path.Combine(ModuleLibRootPath, "boost", "version.hpp"));
         System.IO.StreamReader file = new System.IO.StreamReader(verionFile);
@@ -95,10 +95,10 @@ public class BoostModule : ModuleRules
             {
                 string[] words = line.Split(' ');
                 string tmpVersion = words[2].ToString();
-                BoostVersion = tmpVersion.Replace("\"", "");
+                LibraryVersion = tmpVersion.Replace("\"", "");
                 Console.WriteLine("BoostModule Root Path:" + ModuleLibRootPath);
                 Console.WriteLine("BoostModule Library Search Path:" + GetLibSearchPath(Target));
-                Console.WriteLine("BoostModule library Version:" + BoostVersion);
+                Console.WriteLine("BoostModule library Version:" + LibraryVersion);
                 break;
             }
         }
@@ -116,11 +116,11 @@ public class BoostModule : ModuleRules
     private string GetLibSearchPath(TargetInfo Target)
     {
 
-        string boostLibrayDir = Environment.GetEnvironmentVariable("BOOST_LIBRARYDIR"); 
-        if (!String.IsNullOrEmpty(boostLibrayDir))
+        string userDefinedLibraryPath = Environment.GetEnvironmentVariable("BOOST_LIBRARYDIR");
+        if (!String.IsNullOrEmpty(userDefinedLibraryPath))
         {
-            Console.WriteLine("LibSearchPath use system environment BOOST_LIBRARYDIR:" + boostLibrayDir);
-            return boostLibrayDir;
+            Console.WriteLine("LibSearchPath use system environment BOOST_LIBRARYDIR:" + userDefinedLibraryPath);
+            return userDefinedLibraryPath;
         }
         else
         {
@@ -130,12 +130,12 @@ public class BoostModule : ModuleRules
                 if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2015)
                 {
                     WindowsVSToolSet = "vc140";
-                    return getLibSearchPath64("win64", "vs2015");
+                    return getVisualStudioLibSearchPath("win64", "vs2015");
                 }
                 else if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
                 {
                     WindowsVSToolSet = "vc120";
-                    return getLibSearchPath64("win64", "vs2013");
+                    return getVisualStudioLibSearchPath("win64", "vs2013");
                 }
             }
             else if (Target.Platform == UnrealTargetPlatform.Win32)
@@ -143,12 +143,12 @@ public class BoostModule : ModuleRules
                 if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2015)
                 {
                     WindowsVSToolSet = "vc140";
-                    return getLibSearchPath64("win32", "vs2015");
+                    return getVisualStudioLibSearchPath("win32", "vs2015");
                 }
                 else if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
                 {
                     WindowsVSToolSet = "vc120";
-                    return getLibSearchPath64("win32", "vs2013");
+                    return getVisualStudioLibSearchPath("win32", "vs2013");
                 }
             
             }
@@ -160,7 +160,7 @@ public class BoostModule : ModuleRules
         return "";
     }
 
-    private string getLibSearchPath64(string platform, string visualStudioVer)
+    private string getVisualStudioLibSearchPath(string platform, string visualStudioVer)
     {
 
         return Path.GetFullPath(Path.Combine(ModuleLibRootPath,
@@ -178,18 +178,18 @@ public class BoostModule : ModuleRules
     {
         get { return Path.GetDirectoryName(RulesCompiler.GetModuleFilename(this.GetType().Name)); }
     }
-    private string BoostVersion;
+    private string LibraryVersion;
 
    
 
     //==================Begin external library root path==============================
-    private string ModuleEnvName
+    private string ModuleLibRootEnvName
     {
         get { return "BOOST_ROOT"; }
     }
     private string ModuleLibRootPath
     {
-        get { return Environment.GetEnvironmentVariable(ModuleEnvName); }
+        get { return Environment.GetEnvironmentVariable(ModuleLibRootEnvName); }
     }	
 
     private string ModuleLibPublicIncludePath
