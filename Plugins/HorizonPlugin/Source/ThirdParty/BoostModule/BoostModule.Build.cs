@@ -40,12 +40,12 @@ public class BoostModule : ModuleRules
             Definitions.Add("BOOST_ALL_NO_LIB"); //disable auto link
             foreach (string boostLib in BoostLibraryList)
             {
-                addBoostLibrary(LibSearchPath, boostLib);
+                addBoostLibrary(Target, LibSearchPath, boostLib);
             }
             isLibrarySupported = true;
         }
         else {
-            System.Diagnostics.Debug.Assert(false, "xxxx");
+            System.Diagnostics.Debug.Assert(false, "Could not find library search path: " + LibSearchPath);
         }
 
 
@@ -65,33 +65,23 @@ public class BoostModule : ModuleRules
         }
 	}
 
-	bool tryInitWin64(TargetInfo Target){
-		bool bRet = false;
-		if (Target.Platform == UnrealTargetPlatform.Win64)
-		{
-			if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
-			{
-	
-	          
-            
-              
-				bRet = true;
-			}
-		}
-
-		return bRet;
-	}
-
-    void addBoostLibrary(string libSearchPath, string boostSystemName)
+    void addBoostLibrary(TargetInfo Target, string libSearchPath, string boostSystemName)
     {
-        string boostVer = "-" + BoostVersion;
-        string gd = "";// -gd, should not use debug version
-        string vc = "-vc120";
-        string mt = "-mt";
+        if (Target.Platform == UnrealTargetPlatform.Win64 ||
+            Target.Platform == UnrealTargetPlatform.Win32)
+        {
+            string boostVer = "-" + BoostVersion;
+            string gd = "";// -gd, should not use debug version
+            string vc = "-" + WindowsVSToolSet;
+            string mt = "-mt";
 
-        string libBoostFileName = "libboost_" + boostSystemName + vc + mt + gd + boostVer + ".lib";
-        string libBoostFilePath = Path.GetFullPath(Path.Combine(libSearchPath, libBoostFileName));
-        PublicAdditionalLibraries.Add(libBoostFilePath);
+            string libBoostFileName = "libboost_" + boostSystemName + vc + mt + gd + boostVer + ".lib";
+            string libBoostFilePath = Path.GetFullPath(Path.Combine(libSearchPath, libBoostFileName));
+            PublicAdditionalLibraries.Add(libBoostFilePath);
+        }
+        else { 
+        
+        }
     }
 
     void parseBoostVersion(TargetInfo Target)
@@ -115,6 +105,12 @@ public class BoostModule : ModuleRules
     
     }
 
+
+    //=================Begin win32 extra flag==========================
+    private string WindowsVSToolSet;
+
+    //=================End win32 extra flag==========================
+
     //=================Begin Library search path==========================
 
     private string GetLibSearchPath(TargetInfo Target)
@@ -131,10 +127,34 @@ public class BoostModule : ModuleRules
             //
             if (Target.Platform == UnrealTargetPlatform.Win64)
             {
-                if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
+                if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2015)
                 {
+                    WindowsVSToolSet = "vc140";
+                    return getLibSearchPath64("win64", "vs2015");
+                }
+                else if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
+                {
+                    WindowsVSToolSet = "vc120";
                     return getLibSearchPath64("win64", "vs2013");
                 }
+            }
+            else if (Target.Platform == UnrealTargetPlatform.Win32)
+            {
+                if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2015)
+                {
+                    WindowsVSToolSet = "vc140";
+                    return getLibSearchPath64("win32", "vs2015");
+                }
+                else if (WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
+                {
+                    WindowsVSToolSet = "vc120";
+                    return getLibSearchPath64("win32", "vs2013");
+                }
+            
+            }
+            else if (Target.Platform == UnrealTargetPlatform.Android)
+            {
+
             }
         }
         return "";
@@ -153,10 +173,6 @@ public class BoostModule : ModuleRules
                  "system", "thread", 
                  "log_setup", "log",
                  "iostreams"};
-
-
-
-
 
 	private string ModuleFilePath
     {
