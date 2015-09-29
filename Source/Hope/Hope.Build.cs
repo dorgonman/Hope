@@ -13,7 +13,7 @@ public class Hope : ModuleRules
 
        // PublicDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore", "MovieSceneCore", "UnrealEd" });
         PublicDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore" });
-        PrivateDependencyModuleNames.AddRange(new string[] { "HorizonPlugin"});
+        PrivateDependencyModuleNames.AddRange(new string[] { "HorizonPlugin", "HorizonCoreModule"});
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
         //Definitions.Add("PERF_DETAILED_PER_CLASS_GC_STATS");

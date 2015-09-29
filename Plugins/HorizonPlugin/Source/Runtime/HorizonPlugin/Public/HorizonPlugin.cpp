@@ -1,4 +1,5 @@
 #include "Engine.h"
+
 #include "HorizonPlugin.h"
 #include "Misc/OutputDevice.h"
 #undef check
@@ -15,10 +16,14 @@ void FHorizonPlugin::StartupModule()
    // UE_LOG(LogHorizonPlugin, Log, TEXT("StartupModule"));
     //UE_LOG(LogTemp, Warning, TEXT("Your message"));
     horizon::HorizonCore::GetInstance()->init();
+    std::string logFilePath = "HorizonLog.txt";
+    horizon::HorizonCore::GetInstance()->initDefaultLog(logFilePath);
     HORIZON_INFO << "TEST" << "\n" << "test2";
+
+    HORIZON_DEBUG << "DEBUG MESSAGE" << "\n" << "test2";
    // check(false);
    // GROWABLE_LOGF(
-        FPlatformMisc::LowLevelOutputDebugString(TEXT("====================test============================="));
+        //FPlatformMisc::LowLevelOutputDebugString(TEXT("====================test============================="));
     //);
 }
 

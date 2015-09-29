@@ -39,6 +39,15 @@ namespace UnrealBuildTool.Rules
 
 		public HorizonPlugin (TargetInfo Target)
 		{
+          
+
+            PublicIncludePaths.AddRange(new string[] { "Public" });
+            PrivateIncludePaths.AddRange(new string[] { "Private" });
+			PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Slate", "SlateCore", "Http" });
+			PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		    DynamicallyLoadedModuleNames.AddRange(new string[] { /* ... add any modules that your module loads dynamically here ... */ });
+            PrivateDependencyModuleNames.AddRange(new string[] {"HorizonCoreModule", "BoostModule" });
+
             //bFasterWithoutUnity = true;
             // Enable RTTI (prop. of superclass ModuleRules defined in UnrealEngine/Engine/Source/Programs/UnrealBuildTool/System/RulesCompiler.cs )
             bUseRTTI = true;
@@ -47,15 +56,7 @@ namespace UnrealBuildTool.Rules
             bEnableExceptions = true;
             // eventually needed as well
             UEBuildConfiguration.bForceEnableExceptions = true;
-            //UEBuildConfiguration.bDebugBuildsActuallyUseDebugCRT = false;
-            //showDebugInfo(Target);
-
-            PublicIncludePaths.AddRange(new string[] { "Public" });
-            PrivateIncludePaths.AddRange(new string[] { "Private" });
-			PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Slate", "SlateCore", "Http" });
-			PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
-		    DynamicallyLoadedModuleNames.AddRange(new string[] { /* ... add any modules that your module loads dynamically here ... */ });
-            PrivateDependencyModuleNames.AddRange(new string[] { "BoostModule", "HorizonCoreModule" });
+            Definitions.Add("BOOST_ALL_NO_LIB"); //disable auto link
 		}
 
         private string ModulePath

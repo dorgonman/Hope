@@ -40,6 +40,7 @@ public class HorizonCoreModule : ModuleRules
 
             string LibFilePath = Path.Combine(LibSearchPath, "HorizonCoreStatic.lib");
             PublicAdditionalLibraries.Add(LibFilePath);
+            Definitions.Add("BOOST_ALL_NO_LIB"); //disable auto link
             isLibrarySupported = true;
         }
         else
@@ -51,11 +52,24 @@ public class HorizonCoreModule : ModuleRules
         if (isLibrarySupported)
         {
             PublicIncludePaths.Add(ModuleLibPublicIncludePath);
-
+            PublicIncludePaths.Add(Environment.GetEnvironmentVariable("BOOST_ROOT"));
         }
-
-
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine" });
+        PrivateDependencyModuleNames.AddRange(new string[] { "BoostModule" });
         Definitions.Add(string.Format("WITH_HORIZON_CORE_BINDING={0}", isLibrarySupported ? 1 : 0));
+
+        Definitions.Add("BOOST_DISABLE_ABI_HEADERS");
+        
+        //bFasterWithoutUnity = true;
+        // Enable RTTI (prop. of superclass ModuleRules defined in UnrealEngine/Engine/Source/Programs/UnrealBuildTool/System/RulesCompiler.cs )
+        bUseRTTI = true;
+        // this seems be ignored on a mac, check UnrealEngine/Engine/Source/Programs/UnrealBuildTool/Mac/MacToolChain.cs
+        // Enable C++ Exceptions for this module
+        bEnableExceptions = true;
+        // eventually needed as well
+        UEBuildConfiguration.bForceEnableExceptions = true;
+        //UEBuildConfiguration.bDebugBuildsActuallyUseDebugCRT = false;
+        //showDebugInfo(Target);
 	}
 
     void checkExternalLibPath()

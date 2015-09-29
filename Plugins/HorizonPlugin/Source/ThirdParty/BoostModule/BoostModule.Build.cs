@@ -55,6 +55,16 @@ public class BoostModule : ModuleRules
 
         }
         Definitions.Add(string.Format("WITH_BOOST_BINDING={0}", isLibrarySupported ? 1 : 0));
+
+        //bFasterWithoutUnity = true;
+        // Enable RTTI (prop. of superclass ModuleRules defined in UnrealEngine/Engine/Source/Programs/UnrealBuildTool/System/RulesCompiler.cs )
+        bUseRTTI = true;
+        // this seems be ignored on a mac, check UnrealEngine/Engine/Source/Programs/UnrealBuildTool/Mac/MacToolChain.cs
+        // Enable C++ Exceptions for this module
+        bEnableExceptions = true;
+        // eventually needed as well
+        UEBuildConfiguration.bForceEnableExceptions = true;
+
 	}
 
 	void checkExternalLibPath(){
