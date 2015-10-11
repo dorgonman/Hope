@@ -83,7 +83,7 @@ public class HorizonCoreModule : ModuleRules
     void parseVersion(TargetInfo Target)
     {
     
-        string verionFile = Path.GetFullPath(Path.Combine(ModuleLibRootPath, "cpp", "Public", "HorizonVersions.h"));
+        string verionFile = Path.GetFullPath(Path.Combine(ModuleLibRootPath, "HorizonCore", "Public", "HorizonVersions.h"));
         System.IO.StreamReader file = new System.IO.StreamReader(verionFile);
         string line;
         while ((line = file.ReadLine()) != null)
@@ -160,7 +160,7 @@ public class HorizonCoreModule : ModuleRules
     {
 
         return Path.GetFullPath(Path.Combine(ModuleLibRootPath,
-                        "cpp", "libs", platform, visualStudioVer, "Release"));
+                        "libs", platform, visualStudioVer, "Release"));
 
     }
     //=================End Library search path============================
@@ -178,13 +178,13 @@ public class HorizonCoreModule : ModuleRules
     }
     private string ModuleLibRootPath
     {
-        get { return Path.Combine(Environment.GetEnvironmentVariable(ModuleLibRootEnvName), "HorizonCore"); }
+        get { return Path.Combine(Environment.GetEnvironmentVariable(ModuleLibRootEnvName), "libHorizonCore"); }
     }
 
     private string ModuleLibPublicIncludePath
     {
         
-        get { return Path.GetFullPath(Path.Combine(ModuleLibRootPath, "cpp", "Public")); }
+        get { return Path.GetFullPath(Path.Combine(ModuleLibRootPath, "HorizonCore", "Public")); }
     }
     //==================End external library root path==============================
 }

@@ -8,7 +8,8 @@ namespace horizon{
 
 
     void HorizonLogBasicBackend::logMessageImplement(const std::string& msg){
-        FPlatformMisc::LowLevelOutputDebugString(TEXT("HorizonLogBasicBackend test"));
+       // FPlatformMisc::LowLevelOutputDebugString(TEXT("HorizonLogBasicBackend test"));
+        FPlatformMisc::LowLevelOutputDebugString(UTF8_TO_TCHAR(msg.c_str()));
     }
 
     void HorizonLogBasicFormatedBackend::logMessageImplement(const std::string& msg){
